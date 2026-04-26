@@ -13,26 +13,26 @@ const Contact = () => {
     {
       icon: "📧",
       label: t("email"),
-      value: "imdadul@example.com",
-      link: "mailto:imdadul@example.com",
+      value: "imdadulhaque1440@gmail.com",
+      link: "mailto:imdadulhaque1440@gmail.com",
     },
     {
       icon: "📱",
       label: t("phone"),
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567",
+      value: "+88 01770-019346",
+      link: "tel: +8801770019346",
     },
     {
       icon: "💼",
       label: t("linkedin"),
-      value: "/in/imdadulhaque",
-      link: "https://linkedin.com/in/imdadulhaque",
+      value: "/in/imdadulhaque1",
+      link: "https://linkedin.com/in/imdadulhaque1",
     },
     {
       icon: "🐙",
       label: t("github"),
-      value: "/imdadulhaque",
-      link: "https://github.com/imdadulhaque",
+      value: "/imdadulhaque1",
+      link: "https://github.com/imdadulhaque1",
     },
   ];
 

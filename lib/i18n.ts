@@ -44,21 +44,24 @@ const baseEnglishResources = {
   typeScriptBestPractices: "TypeScript Best Practices",
   conferenceCapital: "Conference",
   // Publication Items
-  pub1Title: "Modern Web Development with React",
-  pub1Publisher: "Tech Journal",
+  pub1Title:
+    "A BrainNet (BrN) based New Approach to Classify Brain Stroke from CT Scan Images",
+  pub1Publisher: "IEEE",
   pub1Author: "Imdadul Haque",
   pub1Description:
-    "An in-depth guide to building scalable applications with React and modern tools. Covers best practices, performance optimization, and testing strategies.",
-  pub2Title: "TypeScript Best Practices",
-  pub2Publisher: "Conference Paper",
+    "Worldwide, brain stroke is known as the 2nd leading cause of death, and based on Indian history, three people have suffered every minute. There are mainly two different types of brain stroke: ischemic stroke and Hemorrhagic stroke used to train the proposed models. Ischemic stroke is the most common and it contributes mostly to 80% of the brain stroke and Hemorrhagic stroke contributes mostly to 20% of the brain stroke. In the proposed model, there has been used a hybrid model called BrainNet (BrN) as CNN(Convolutional Neural Network) and SVM(Support Vector Machine)to classify brain stroke disease. After applying the required proposed model, it has produced a smart score of 91.91% accuracy, and compared to the existing model it performs pretty well. The BrainNet (BrN) model is mainly designed based on a deep neural network with dataset collection, preprocessing, and feature extraction with the desired model and make the classification concerning SVM. With compare to the existing model, it is an acceptable performance that belongs to the collected dataset designed with Ischemic stroke and Hemorrhagic stroke disease within the total number of 2515 data.",
+  pub2Title:
+    "Examining The Risk Factors of Liver Disease: A Machine Learning Approach",
+  pub2Publisher: "IEEE",
   pub2Author: "Imdadul Haque",
   pub2Description:
-    "Exploring advanced TypeScript patterns for better code quality. Includes practical examples and real-world scenarios.",
-  pub3Title: "Building Scalable APIs with Node.js",
-  pub3Publisher: "Tech Medium",
+    "Nowadays, Liver Disease (LD) is a very common clinical problem for human health and is related to morbidity and mortality. Nevertheless, an earlier prognosis of LD patients gets a scope to avoid, prior diagnosis and subsequent treatment. This research work attempts to implement a high qualified performer machine learning design to predict LD, the most wanted and unwanted risk factor of LD which could help physicians in classifying risky patients and create an analysis to restrict and control LD. The proposed research study has included all patients, who were identified as having liver diseases. Totally, 6 (six) machine learning algorithms such as Decision Tree(DT), Logistic Regression(LR), Multilayer Perceptron(MLP), Artificial Neural Network(ANN), Random Forest(RF), K Nearest Neighbor classifier(KNN) are selected to predict LD. The location underneath had been utilized to evaluate the accuracy among the six applied models. An overall total of 583 instances had been included in this scholarly research; of the 416 patients are affected by liver illness. The location which defines the receiver operating characteristic (AU ROC) of Logistic Regression, Decision Tree, Multilayer Perceptron, Random Forest, Artificial Neural Network, and K-Nearest Neighbor classifier with 10-fold-cross validation was performed. Furthermore, the reliability of LR, DT, MLP, RF, ANN and KNN with accuracy 72.89%, 81.32%, 60.24%, 86.14%, 75.61%, and 65.52%. The utilization of woodland which is certainly arbitrary within the medical setting may help doctors to detect and classify liver patients for major avoidance, surveillance, quick treatment, and management. LR, DT, MLP, RF, ANN, and KNN formulas are acclimatized to forecast and after analyzing the data set, an increased price of accuracy is achieved.",
+  pub3Title:
+    "Classifying Pepper Disease based on Transfer Learning: A Deep Learning Approach",
+  pub3Publisher: "IEEE",
   pub3Author: "Imdadul Haque",
   pub3Description:
-    "A comprehensive guide on designing and implementing scalable REST APIs. Covers authentication, caching, and database optimization.",
+    "Pepper is cultivated all over the world and many farmers' subsistence depends on these crops. But unfortunately, farmers who are involved in the cultivation of pepper, have to fall on a huge loss because of the low production of pepper caused by several diseases of pepper. If the diseases can be detected accurately and in a short time, then the losses can be prevented. The incorrect identification and time needed process can't release from the diseases and also can't help reduce the losses. For acquiring great accuracy within a short time to recognize the pepper diseases, multirecognition methods can give promising results to the users. In this study, several pre-trained deep learning models such as VGG-19, Xception, NasNet Mobile, MobileNet-V2, ResNet-152-V2, and Inception-ResNet-V2 have been used to extract the deep characteristic from the images and these models provide great accuracy. Most of the diseases of pepper are caused by a fungal and bacterial attack. In this study, 386 images are used for training, 63 images are used for validation and 107 images are used for testing 4 classes of pepper diseases and one healthy image of pepper for identifying the diseases types of pepper. The customized CNN models have achieved the highest accuracy and fulfilled the target of this study. The picking accuracy has been achieved from the VGG-19 and ResNet-152-V2 is 96.26%. Also, Xception has provided better accuracy than Inception-ResNet-V2, MobileNet-V2, and NasNet-Mobile and that is 93.46%.",
   // Common UI
   seeMore: "See More",
   share: "Share",
@@ -131,21 +134,23 @@ const banglaTranslations = {
   typeScriptBestPractices: "TypeScript সেরা অনুশীলন",
   conferenceCapital: "সম্মেলন",
   // Publication Items
-  pub1Title: "React এর সাথে আধুনিক ওয়েব ডেভেলপমেন্ট",
-  pub1Publisher: "টেক জার্নাল",
+  pub1Title:
+    "CT স্ক্যান ইমেজ থেকে ব্রেইন স্ট্রোক শ্রেণীবিন্যাসের জন্য একটি BrainNet (BrN) ভিত্তিক নতুন পদ্ধতি",
+  pub1Publisher: "IEEE",
   pub1Author: "ইমদাদুল হক",
   pub1Description:
-    "React এবং আধুনিক টুলস দিয়ে স্কেলেবল অ্যাপ্লিকেশন তৈরির একটি গভীর নির্দেশিকা। সেরা অনুশীলন, পারফরম্যান্স অপটিমাইজেশন এবং টেস্টিং কৌশল কভার করে।",
-  pub2Title: "TypeScript সেরা অনুশীলন",
-  pub2Publisher: "কনফারেন্স পেপার",
+    "বিশ্বব্যাপী ব্রেইন স্ট্রোক মৃত্যুর দ্বিতীয় প্রধান কারণ হিসেবে পরিচিত। প্রস্তাবিত মডেলটি BrainNet (BrN) নামে একটি হাইব্রিড মডেল ব্যবহার করে, যা CNN এবং SVM কে সংযুক্ত করে স্ট্রোক রোগ শ্রেণীবিন্যে সহায়তা করে। মডেলটি ৯১.৯১% নির্ভুলতা প্রদর্শন করেছে এবং বিদ্যমান মডেলের তুলনায় ভালো ফলাফল দেখায়। এতে ডেটা সংগ্রহ, প্রিপ্রসেসিং এবং ফিচার এক্সট্রাকশন সহ পুরো প্রক্রিয়া অন্তর্ভুক্ত করা হয়েছে।",
+  pub2Title: "লিভার ডিজিজের ঝুঁকি কারণ অন্বেষণ: একটি মেশিন লার্নিং পদ্ধতি",
+  pub2Publisher: "IEEE",
   pub2Author: "ইমদাদুল হক",
   pub2Description:
-    "উন্নত কোড কোয়ালিটির জন্য উন্নত TypeScript প্যাটার্ন অন্বেষণ। ব্যবহারিক উদাহরণ এবং বাস্তবসম্মত পরিস্থিতি অন্তর্ভুক্ত।",
-  pub3Title: "Node.js দিয়ে স্কেলেবল API তৈরি",
-  pub3Publisher: "টেক মিডিয়াম",
+    "লিভার ডিজিজ একটি সাধারণ ক্লিনিক্যাল সমস্যা যার সাথে স্বাস্থ্য ঝুঁকি ও মৃত্যুর হার সম্পর্কিত। প্রস্তাবিত গবেষণায় ছয়টি মেশিন লার্নিং অ্যালগরিদম ব্যবহার করে লিভার ডিজিজ পূর্বাভাস দেওয়া হয়েছে, যা চিকিৎসকদের ঝুঁকিপূর্ণ রোগী শনাক্ত করতে সহায়তা করে। মডেলগুলির মধ্যে র‍্যান্ডম ফরেস্ট, লজিস্টিক রিগ্রেশন ও অন্যান্য অ্যালগরিদমের পরিমাণগত বিশ্লেষণ করা হয়েছে।",
+  pub3Title:
+    "ট্রান্সফার লার্নিং ভিত্তিক মরিচ রোগ শ্রেণীবিন্যাস: একটি ডিপ লার্নিং পদ্ধতি",
+  pub3Publisher: "IEEE",
   pub3Author: "ইমদাদুল হক",
   pub3Description:
-    "স্কেলেবল REST API ডিজাইন এবং বাস্তবায়নের একটি বিস্তৃত নির্দেশিকা। অথেনটিকেশন, ক্যাশিং এবং ডাটাবেস অপটিমাইজেশন কভার করে।",
+    "মরিচের বিভিন্ন রোগ নির্ণয়ে দ্রুত ও সঠিক সনাক্তকরণ গুরুত্বপূর্ণ। এই গবেষণায় প্রি-ট্রেইনড ডিপ লার্নিং মডেল ব্যবহার করে মরিচ রোগ শনাক্ত করার চেষ্টা করা হয়েছে। প্রস্তাবিত পদ্ধতিতে VGG-19, Xception, NasNet Mobile, MobileNet-V2, ResNet-152-V2 ও Inception-ResNet-V2 সহ বিভিন্ন মডেলের কার্যকারিতা পরীক্ষা করা হয়েছে এবং সঠিকতা উন্নত করা হয়েছে।",
   // Common UI
   seeMore: "আরও দেখুন",
   share: "শেয়ার",
