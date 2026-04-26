@@ -50,7 +50,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <button
               type="button"
               onClick={() => router.push("/")}
@@ -61,6 +61,7 @@ const Navbar = () => {
                     : "text-red-600"
                   : `${theme === "dark" ? "dark-text" : "light-text"} hover:text-gray-600 dark:hover:text-gray-300`
               }`}
+              suppressHydrationWarning
             >
               {t("name")}
             </button>
@@ -78,6 +79,7 @@ const Navbar = () => {
                       : "bg-blue-500 text-white shadow-lg"
                     : `${theme === "dark" ? "dark-text" : "light-text"} hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800`
                 }`}
+                suppressHydrationWarning
               >
                 {t(link.labelKey)}
               </button>

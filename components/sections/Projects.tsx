@@ -2,100 +2,88 @@
 
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
+import { projects } from "@/lib/projects-data";
 
 const Projects = () => {
   const { theme } = useTheme();
   const { t } = useTranslation("common");
   const txtColor = theme === "dark" ? "dark-text" : "light-text";
   const bgColor = theme === "dark" ? "dark-bg" : "light-bg";
-
-  const projects = [
-    {
-      title: "E-Commerce Platform",
-      description:
-        "Full-stack e-commerce solution with React, Node.js, and MongoDB. Features include product catalog, shopping cart, payment integration, and admin dashboard.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      link: "#",
-    },
-    {
-      title: "Task Management App",
-      description:
-        "Collaborative task management with real-time updates using Socket.io. Users can create projects, assign tasks, and track progress.",
-      technologies: ["Next.js", "Socket.io", "PostgreSQL", "Tailwind"],
-      link: "#",
-    },
-    {
-      title: "Portfolio Website",
-      description:
-        "Responsive portfolio with dark mode, animations, and multi-language support. Built with Next.js and optimized for performance.",
-      technologies: ["Next.js", "Tailwind CSS", "i18n", "Framer Motion"],
-      link: "#",
-    },
-    {
-      title: "Analytics Dashboard",
-      description:
-        "Real-time analytics dashboard with charts, graphs, and data visualization. Fetches data from multiple sources and displays insights.",
-      technologies: ["React", "Chart.js", "API", "Redux"],
-      link: "#",
-    },
-    {
-      title: "Social Media App",
-      description:
-        "Social networking platform with features like posts, comments, likes, and user profiles. Includes real-time notifications.",
-      technologies: ["React Native", "Firebase", "WebSockets"],
-      link: "#",
-    },
-    {
-      title: "CMS Platform",
-      description:
-        "Content Management System with role-based access control. Features include content creation, scheduling, and publishing workflows.",
-      technologies: ["Next.js", "PostgreSQL", "GraphQL", "Prisma"],
-      link: "#",
-    },
-  ];
+  const cardBg =
+    theme === "dark" ? "dark-bg-transparent" : "light-bg-transparent";
 
   return (
-    <section
-      id="projects"
-      className={`min-h-screen flex items-center justify-center px-4 ${bgColor} animate-fade-in-up py-20`}
-    >
-      <div className="max-w-6xl mx-auto w-full">
-        <h2
-          className={`text-3xl md:text-5xl font-bold ${txtColor} mb-8 text-center`}
-        >
-          {t("projects")}
-        </h2>
-        <p
-          className={`text-lg md:text-xl ${txtColor} mb-12 text-center leading-relaxed`}
-        >
-          {t("projectsDesc")}
-        </p>
+    <section id="projects" className={`py-20 ${bgColor}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className={`text-4xl font-bold ${txtColor} mb-4`}>
+            {t("projects")}
+          </h2>
+          <p className={`text-lg ${txtColor} opacity-80 max-w-2xl mx-auto`}>
+            {t("projectsDesc")}
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
-            <a
-              key={idx}
-              href={project.link}
-              className={`p-6 rounded-lg transition-all hover:shadow-xl hover:-translate-y-2 flex flex-col cursor-pointer ${theme === "dark" ? "bg-gray-800 hover:border-blue-500" : "bg-gray-100 hover:border-blue-500"} border-2 border-transparent`}
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              className={`group rounded-2xl overflow-hidden ${cardBg} backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:transform hover:scale-105 transition-all duration-300`}
             >
-              <h3 className={`text-xl font-semibold ${txtColor} mb-3`}>
-                {project.title}
-              </h3>
-              <p
-                className={`${txtColor} mb-4 flex-grow text-sm leading-relaxed`}
+              <div
+                className={`h-48 ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"} flex items-center justify-center`}
               >
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {project.technologies.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="px-2 py-1 bg-blue-500 text-white text-xs rounded font-semibold"
-                  >
-                    {tech}
-                  </span>
-                ))}
+                <svg
+                  className={`w-16 h-16 ${txtColor} opacity-50`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  />
+                </svg>
               </div>
-            </a>
+              <div className="p-6">
+                <h3
+                  className={`text-xl font-semibold ${txtColor} mb-3 group-hover:text-blue-500 transition-colors`}
+                >
+                  {t(project.titleKey)}
+                </h3>
+                <p
+                  className={`${txtColor} opacity-80 mb-4 leading-relaxed text-sm`}
+                >
+                  {t(project.descriptionKey)}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className={`px-2 py-1 text-xs rounded-full ${theme === "dark" ? "bg-gray-800 text-gray-300" : "bg-gray-100 text-gray-700"}`}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-3">
+                  <a
+                    href={project.github}
+                    className="flex-1 text-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 text-sm font-medium"
+                  >
+                    GitHub
+                  </a>
+                  <a
+                    href={project.demo}
+                    className="flex-1 text-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 text-sm font-medium"
+                  >
+                    Live Demo
+                  </a>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

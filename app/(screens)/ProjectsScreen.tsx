@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
+import { projects } from "../../lib/projects-data";
 
 const ProjectsScreen = () => {
   const { theme } = useTheme();
@@ -19,33 +20,6 @@ const ProjectsScreen = () => {
     mounted && theme === "dark"
       ? "dark-bg-transparent"
       : "light-bg-transparent";
-
-  const projects = [
-    {
-      title: t("ecommercePlatform"),
-      description: t("ecommerceDesc"),
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      github: "#",
-      demo: "#",
-      image: "/api/placeholder/400/250",
-    },
-    {
-      title: t("taskManagementApp"),
-      description: t("taskDesc"),
-      technologies: ["React Native", "Firebase", "Redux", "Expo"],
-      github: "#",
-      demo: "#",
-      image: "/api/placeholder/400/250",
-    },
-    {
-      title: t("portfolioWebsite"),
-      description: t("portfolioDesc"),
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-      github: "#",
-      demo: "#",
-      image: "/api/placeholder/400/250",
-    },
-  ];
 
   return (
     <div className={`min-h-screen ${bgColor} py-20 px-4`}>
@@ -90,12 +64,12 @@ const ProjectsScreen = () => {
                 <h3
                   className={`text-xl font-semibold ${txtColor} mb-3 group-hover:text-blue-500 transition-colors`}
                 >
-                  {project.title}
+                  {t(project.titleKey)}
                 </h3>
                 <p
                   className={`${txtColor} opacity-80 mb-4 leading-relaxed text-sm`}
                 >
-                  {project.description}
+                  {t(project.descriptionKey)}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.map((tech, techIndex) => (
