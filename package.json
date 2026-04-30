@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "google-translate-api-x": "^10.7.2",
     "i18next": "^26.0.4",
     "i18next-browser-languagedetector": "^8.2.1",

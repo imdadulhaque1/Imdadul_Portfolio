@@ -2,6 +2,8 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
+const isClient = typeof window !== "undefined";
+
 const baseEnglishResources = {
   name: "Imdadul Haque",
   hireMe: "Hire Me",
@@ -90,6 +92,15 @@ const baseEnglishResources = {
   toggleTheme: "Toggle Theme",
   lightMode: "Light Mode",
   darkMode: "Dark Mode",
+  // Chat Widget
+  chatIcon: "Chat",
+  chatTitle: "Chat with me",
+  enterEmail: "Enter your email",
+  enterMessage: "Enter your message",
+  send: "Send",
+  emailRequired: "Email is required",
+  messageRequired: "Message is required",
+  thankYou: "Thank you! Your message has been sent.",
 };
 
 const banglaTranslations = {
@@ -178,6 +189,15 @@ const banglaTranslations = {
   toggleTheme: "থিম টগল করুন",
   lightMode: "লাইট মোড",
   darkMode: "ডার্ক মোড",
+  // Chat Widget
+  chatIcon: "চ্যাট",
+  chatTitle: "আমার সাথে চ্যাট করুন",
+  enterEmail: "আপনার ইমেইল লিখুন",
+  enterMessage: "আপনার মেসেজ লিখুন",
+  send: "পাঠান",
+  emailRequired: "ইমেইল প্রয়োজন",
+  messageRequired: "মেসেজ প্রয়োজন",
+  thankYou: "ধন্যবাদ! আপনার মেসেজ পাঠানো হয়েছে।",
 };
 
 const resources = {
@@ -189,18 +209,22 @@ const resources = {
   },
 };
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources,
-    fallbackLng: "en",
-    ns: ["common"],
-    defaultNS: "common",
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+const i18nInstance = i18n.use(initReactI18next);
+
+if (isClient) {
+  i18nInstance.use(LanguageDetector);
+}
+
+i18nInstance.init({
+  resources,
+  lng: "en",
+  fallbackLng: "en",
+  ns: ["common"],
+  defaultNS: "common",
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 export { baseEnglishResources };
 export default i18n;
