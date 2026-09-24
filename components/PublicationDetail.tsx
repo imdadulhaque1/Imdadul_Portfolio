@@ -11,6 +11,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const PublicationDetail = ({
   publication,
@@ -19,10 +20,16 @@ const PublicationDetail = ({
 }) => {
   const { theme } = useTheme();
   const { t } = useTranslation("common");
-  const txtColor = theme === "dark" ? "dark-text" : "light-text";
-  const bgColor = theme === "dark" ? "dark-bg" : "light-bg";
-  const cardBg =
-    theme === "dark" ? "dark-bg-transparent" : "light-bg-transparent";
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && theme === "dark";
+  const txtColor = isDark ? "dark-text" : "light-text";
+  const bgColor = isDark ? "dark-bg" : "light-bg";
+  const cardBg = isDark ? "dark-bg-transparent" : "light-bg-transparent";
 
   return (
     <div className={`min-h-screen ${bgColor} py-20 px-4`}>

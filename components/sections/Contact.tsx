@@ -2,12 +2,21 @@
 
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
 
 const Contact = () => {
   const { theme } = useTheme();
   const { t } = useTranslation("common");
-  const txtColor = theme === "dark" ? "dark-text" : "light-text";
-  const bgColor = theme === "dark" ? "dark-bg" : "light-bg";
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && theme === "dark";
+  const txtColor = isDark ? "dark-text" : "light-text";
+  const bgColor = isDark ? "dark-bg" : "light-bg";
+  const cardBg = isDark ? "dark-bg-transparent" : "light-bg-transparent";
 
   const contacts = [
     {
@@ -39,35 +48,37 @@ const Contact = () => {
   return (
     <section
       id="contactMe"
-      className={`min-h-screen flex items-center justify-center px-4 ${bgColor} animate-fade-in-up py-20`}
+      className={`min-h-screen scroll-mt-20 flex items-center justify-center px-4 ${bgColor} animate-fade-in-up py-12 sm:py-16 md:py-20`}
     >
-      <div className="max-w-2xl mx-auto w-full">
+      <div className="relative z-10 max-w-3xl mx-auto w-full">
         <h2
-          className={`text-3xl md:text-5xl font-bold ${txtColor} mb-6 text-center`}
+          className={`text-3xl md:text-5xl font-bold ${txtColor} mb-4 sm:mb-6 text-center`}
         >
           {t("contactMe")}
         </h2>
         <p
-          className={`text-lg md:text-xl ${txtColor} mb-12 text-center leading-relaxed`}
+          className={`text-body md:text-body-lg ${txtColor} mb-8 sm:mb-12 text-center leading-relaxed`}
         >
           {t("contactMeDesc")}
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {contacts.map((contact, idx) => (
             <a
               key={idx}
               href={contact.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={`p-6 rounded-lg transition-all hover:shadow-lg hover:-translate-y-1 ${theme === "dark" ? "bg-gray-800 hover:bg-gray-700" : "bg-gray-100 hover:bg-gray-200"}`}
+              className={`p-4 sm:p-6 rounded-lg ${cardBg} backdrop-blur-sm transition-all hover:shadow-lg hover:-translate-y-1 hover:border-accent/50`}
             >
               <div className="text-3xl mb-3">{contact.icon}</div>
               <h3
-                className={`text-sm font-semibold ${txtColor} opacity-75 mb-2`}
+                className={`text-body md:text-body-lg font-semibold ${txtColor} opacity-75 mb-2`}
               >
                 {contact.label}
               </h3>
-              <p className={`text-lg font-medium ${txtColor}`}>
+              <p
+                className={`text-heading-sm sm:text-heading md:text-heading-lg font-medium break-words ${txtColor}`}
+              >
                 {contact.value}
               </p>
             </a>
@@ -77,19 +88,19 @@ const Contact = () => {
           <input
             type="text"
             placeholder="Your Name"
-            className={`w-full px-4 py-3 rounded-lg ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            className={`w-full px-4 py-3 rounded-lg text-body md:text-body-lg ${isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
           <input
             type="email"
             placeholder="Your Email"
-            className={`w-full px-4 py-3 rounded-lg ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            className={`w-full px-4 py-3 rounded-lg text-body md:text-body-lg ${isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
           <textarea
             placeholder="Your Message"
             rows={5}
-            className={`w-full px-4 py-3 rounded-lg ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            className={`w-full px-4 py-3 rounded-lg text-body md:text-body-lg ${isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
-          <button className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 font-semibold cursor-pointer">
+          <button className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 text-body md:text-body-lg font-semibold cursor-pointer">
             Send Message
           </button>
         </form>

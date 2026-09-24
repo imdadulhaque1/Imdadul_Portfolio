@@ -1,48 +1,97 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f3ff;
+  --foreground: #1e1b4b;
+  --accent: #6366f1;
+  --accent-secondary: #8b5cf6;
+}
+
+:root.dark {
+  --background: #0f0c29;
+  --foreground: #e0e7ff;
+  --accent: #818cf8;
+  --accent-secondary: #a78bfa;
 }
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-dark-primary: #00004d;
-  --color-light-primary: #e6e6ff;
-  --font-sans: var(--font-geist-sans);
+  --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-dark-primary: #1a1442;
+  --color-light-primary: #eef2ff;
+  --font-sans: var(--font-work-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Single source of truth for body copy vs. card/item title sizes, used
+     with the sm:/md: prefixes everywhere (e.g. `text-heading-sm sm:text-heading
+     md:text-heading-lg`) so every section's text stays in sync - change the
+     values here instead of hunting down every text-* class across the
+     section components. text-heading-sm exists because card titles (e.g.
+     publication titles) at text-heading's 30px took 5+ lines on a phone
+     screen and dominated the card. */
+  --text-body: 1.25rem; /* 20px */
+  --text-body-lg: 1.25rem; /* 20px */
+  --text-heading-sm: 1.375rem; /* 22px */
+  --text-heading: 1.875rem; /* 30px */
+  --text-heading-lg: 2.25rem; /* 36px */
 }
 
 .light-text {
-  color: #000000;
+  color: #1e1b4b;
 }
 
 .dark-text {
-  color: #e6e6ff;
+  color: #e0e7ff;
 }
 
+/* Flat, not a gradient - each section used to fade 0% to 100% of its own
+   height, so the fade restarted at every section's top edge instead of
+   continuing from the previous section's bottom. That made every section
+   boundary visible as an abrupt color jump, like separate stacked pages
+   instead of one continuous scroll. A flat color can't create that seam. */
 .light-bg {
-  background-color: #e6e6ff;
+  background: #f5f3ff;
 }
 
 .dark-bg {
-  background-color: #000000;
+  background: #0f0c29;
 }
 
 .light-bg-transparent {
-  background-color: rgba(230, 230, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(99, 102, 241, 0.28);
+  box-shadow: 0 8px 24px -12px rgba(30, 27, 75, 0.25);
 }
 
 .dark-bg-transparent {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(26, 20, 66, 0.72);
+  border: 1px solid rgba(129, 140, 248, 0.18);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  color: #ffffff;
+  box-shadow: 0 8px 24px -8px rgba(99, 102, 241, 0.55);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -8px rgba(99, 102, 241, 0.65);
+}
+
+.hero-orb {
+  position: fixed;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes fadeInUp {
@@ -60,11 +109,76 @@
   animation: fadeInUp 0.6s ease-out;
 }
 
+/* An expanding ring on a pseudo-element, not the badge's own box-shadow -
+   animating box-shadow directly would fight the card's own static shadow
+   (from .light-bg-transparent / .dark-bg-transparent) and mostly cancel out
+   every cycle instead of reading as a clear pulse. */
+.animate-badge-pulse {
+  position: relative;
+}
+
+.animate-badge-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  border: 2px solid rgba(16, 185, 129, 0.65);
+  animation: badgeRing 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes badgeRing {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.22);
+    opacity: 0;
+  }
+}
+
+/* A brief shake burst followed by a hold, not continuous shaking - this
+   sits mid-sentence, and shaking the whole time would make the sentence
+   around it hard to read. */
+@keyframes textShake {
+  0%,
+  76%,
+  100% {
+    transform: translateX(0);
+  }
+  80% {
+    transform: translateX(-4px);
+  }
+  84% {
+    transform: translateX(4px);
+  }
+  88% {
+    transform: translateX(-4px);
+  }
+  92% {
+    transform: translateX(4px);
+  }
+  96% {
+    transform: translateX(-2px);
+  }
+}
+
+.animate-shake {
+  display: inline-block;
+  animation: textShake 2.6s ease-in-out infinite;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-work-sans), Arial, Helvetica, sans-serif;
   scroll-behavior: smooth;
+  /* The fixed corner-glow orbs are wider than narrow viewports and meant to
+     bleed off-screen - browsers don't consistently exclude position:fixed
+     elements from scrollWidth, so without this a re-render (e.g. any state
+     change) can make one register as horizontal overflow on mobile. */
+  overflow-x: hidden;
 }
 
 /* Hide scrollbar */
@@ -74,4 +188,8 @@ body {
 
 html {
   scrollbar-width: none;
+  scroll-behavior: smooth;
+  /* position:fixed is relative to the viewport, not body, so body's own
+     overflow-x: hidden can't clip it - this has to live on html too. */
+  overflow-x: hidden;
 }

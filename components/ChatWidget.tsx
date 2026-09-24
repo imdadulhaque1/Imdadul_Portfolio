@@ -69,7 +69,7 @@ const ChatWidget = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-16 right-4 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl border z-50">
+        <div className="fixed bottom-16 right-4 w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-800 rounded-lg shadow-xl border z-50">
           <div className="flex items-center justify-between p-4 border-b">
             <h3 className="font-semibold text-gray-900 dark:text-white">
               {t("chatTitle")}

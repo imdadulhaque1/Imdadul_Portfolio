@@ -32,7 +32,9 @@ const HireMeScreen = () => {
           <p
             className={`text-xl md:text-2xl ${txtColor} max-w-3xl mx-auto mb-8 leading-relaxed animate-fade-in-up`}
           >
-            {t("hireMeDesc")}
+            {t("hireMeDescPrefix")}
+            {t("hireMeDescHighlight")}
+            {t("hireMeDescSuffix")}
           </p>
         </div>
 
@@ -124,13 +126,13 @@ const HireMeScreen = () => {
         <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up">
           <a
             href="/contact"
-            className="px-8 py-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="btn-primary px-8 py-4 rounded-lg font-semibold text-lg"
           >
             {t("contactMe")}
           </a>
           <a
             href="/projects"
-            className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border-2 ${theme === "dark" ? "border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white" : "border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white"}`}
+            className="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border-2 border-accent text-accent hover:bg-accent hover:text-white"
           >
             {t("projects")}
           </a>

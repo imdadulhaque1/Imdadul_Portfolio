@@ -12,25 +12,21 @@ import {
   Share2,
 } from "lucide-react";
 import { publications } from "@/lib/publication-data";
-import { useState } from "react";
-
-interface PublicationItem {
-  id: number;
-  titleKey: string;
-  publisherKey: string;
-  publicationDate: string;
-  authorKey: string;
-  publicationURL: string;
-  descriptionKey: string;
-}
+import { useState, useEffect } from "react";
 
 const Publication = () => {
   const { theme } = useTheme();
   const { t } = useTranslation("common");
-  const txtColor = theme === "dark" ? "dark-text" : "light-text";
-  const bgColor = theme === "dark" ? "dark-bg" : "light-bg";
-  const cardBg =
-    theme === "dark" ? "dark-bg-transparent" : "light-bg-transparent";
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && theme === "dark";
+  const txtColor = isDark ? "dark-text" : "light-text";
+  const bgColor = isDark ? "dark-bg" : "light-bg";
+  const cardBg = isDark ? "dark-bg-transparent" : "light-bg-transparent";
 
   const [selectedPublication, setSelectedPublication] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -75,26 +71,33 @@ const Publication = () => {
   };
 
   return (
-    <section id="publication" className={`py-20 ${bgColor}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl font-bold ${txtColor} mb-4`}>
+    <section
+      id="publication"
+      className={`py-12 sm:py-16 md:py-20 scroll-mt-20 ${bgColor}`}
+    >
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2
+            className={`text-3xl md:text-5xl font-bold ${txtColor} mb-3 sm:mb-4`}
+          >
             {t("publication")}
           </h2>
-          <p className={`text-lg ${txtColor} opacity-80 max-w-2xl mx-auto`}>
+          <p
+            className={`text-body md:text-body-lg ${txtColor} opacity-80 max-w-2xl mx-auto`}
+          >
             {t("publicationDesc")}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {publications.map((pub) => (
             <div
               key={pub.id}
-              className={`p-6 rounded-xl ${cardBg} backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:transform hover:scale-105 transition-all duration-300`}
+              className={`p-4 sm:p-6 rounded-xl ${cardBg} backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:transform hover:scale-105 transition-all duration-300`}
             >
               <div className="flex items-start justify-between mb-4">
                 <h3
-                  className={`text-xl font-bold ${txtColor} flex-1 leading-tight`}
+                  className={`text-heading-sm sm:text-heading md:text-heading-lg font-bold ${txtColor} flex-1 leading-tight`}
                 >
                   {t(pub.titleKey)}
                 </h3>
@@ -108,28 +111,30 @@ const Publication = () => {
                 </a>
               </div>
               <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2 text-sm">
+                <div className="flex items-center gap-2">
                   <BookOpen size={16} className="text-blue-500" />
-                  <span className={`${txtColor} font-medium`}>
+                  <span
+                    className={`text-body md:text-body-lg ${txtColor} font-medium`}
+                  >
                     {t(pub.publisherKey)}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
+                <div className="flex items-center gap-2">
                   <Calendar size={16} className="text-blue-500" />
-                  <span className={`${txtColor} opacity-75`}>
+                  <span className={`text-body md:text-body-lg ${txtColor} opacity-75`}>
                     {new Date(pub.publicationDate).toLocaleDateString()}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
+                <div className="flex items-center gap-2">
                   <User size={16} className="text-blue-500" />
-                  <span className={`${txtColor} opacity-75`}>
+                  <span className={`text-body md:text-body-lg ${txtColor} opacity-75`}>
                     {t(pub.authorKey)}
                   </span>
                 </div>
               </div>
               <div className="mb-4">
                 <p
-                  className={`${txtColor} leading-relaxed text-sm overflow-hidden`}
+                  className={`text-body md:text-body-lg ${txtColor} leading-relaxed overflow-hidden`}
                   style={{
                     display: "-webkit-box",
                     WebkitLineClamp: 3,
@@ -140,7 +145,7 @@ const Publication = () => {
                 </p>
                 <button
                   onClick={() => openModal(pub)}
-                  className="mt-2 text-blue-500 hover:text-blue-600 transition-colors font-medium text-sm flex items-center gap-1 cursor-pointer"
+                  className="mt-2 text-blue-500 hover:text-blue-600 transition-colors font-medium text-body md:text-body-lg flex items-center gap-1 cursor-pointer"
                 >
                   <Eye size={14} />
                   {t("seeMore") || "See More"}
@@ -159,13 +164,13 @@ const Publication = () => {
             />
             <div
               className={`relative max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl ${
-                theme === "dark" ? "bg-gray-900" : "bg-white"
+                isDark ? "bg-gray-900" : "bg-white"
               } shadow-2xl`}
             >
               {/* Modal Header */}
               <div
                 className={`sticky top-0 z-10 p-6 border-b ${
-                  theme === "dark"
+                  isDark
                     ? "border-gray-700 bg-gray-900/95"
                     : "border-gray-200 bg-white/95"
                 } backdrop-blur-sm rounded-t-2xl`}
@@ -203,7 +208,7 @@ const Publication = () => {
                   <button
                     onClick={closeModal}
                     className={`p-2 rounded-full transition-colors ${
-                      theme === "dark"
+                      isDark
                         ? "hover:bg-gray-800"
                         : "hover:bg-gray-100"
                     }`}
@@ -229,7 +234,7 @@ const Publication = () => {
                   <button
                     onClick={() => sharePublication(selectedPublication)}
                     className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors font-medium ${
-                      theme === "dark"
+                      isDark
                         ? "bg-gray-700 hover:bg-gray-600 text-white"
                         : "bg-gray-200 hover:bg-gray-300 text-gray-800"
                     }`}
@@ -240,7 +245,7 @@ const Publication = () => {
                   <button
                     onClick={() => copyPublicationLink(selectedPublication)}
                     className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors font-medium ${
-                      theme === "dark"
+                      isDark
                         ? "bg-gray-800 hover:bg-gray-700 text-white"
                         : "bg-gray-100 hover:bg-gray-200 text-gray-800"
                     }`}
@@ -268,7 +273,7 @@ const Publication = () => {
                 {/* Additional Info */}
                 <div
                   className={`p-4 rounded-lg ${
-                    theme === "dark" ? "bg-gray-800" : "bg-gray-50"
+                    isDark ? "bg-gray-800" : "bg-gray-50"
                   }`}
                 >
                   <h4 className={`font-semibold ${txtColor} mb-2`}>

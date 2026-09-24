@@ -1,12 +1,15 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Work_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "next-themes";
 import ChatWidget from "@/components/ChatWidget";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import InstallPWAPrompt from "@/components/InstallPWAPrompt";
+import { ActiveSectionProvider } from "@/components/ActiveSectionContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const workSans = Work_Sans({
+  variable: "--font-work-sans",
   subsets: ["latin"],
 });
 
@@ -34,6 +37,19 @@ export const metadata: Metadata = {
       "Portfolio of Imdadul Haque, a passionate full stack developer",
     type: "website",
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Imdadul Haque",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#eef2ff" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a1442" },
+  ],
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({
@@ -44,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${workSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
@@ -54,9 +70,27 @@ export default function RootLayout({
             defaultTheme="dark"
             enableSystem={false}
           >
-            <Navbar />
-            {children}
-            <ChatWidget />
+            <ActiveSectionProvider>
+              {/* One ambient glow pinned to the viewport, not re-created per
+                  section - each section used to render its own pair, clipped
+                  hard at that section's own edge, so every section boundary
+                  showed as a visible seam where one section's glow abruptly
+                  ended and the next's began. Fixed position means it never
+                  interacts with section boundaries at all. */}
+              <div
+                className="hero-orb w-72 h-72 sm:w-96 sm:h-96 bg-accent -top-24 -left-24"
+                aria-hidden="true"
+              />
+              <div
+                className="hero-orb w-72 h-72 sm:w-96 sm:h-96 bg-accent-secondary -bottom-24 -right-24"
+                aria-hidden="true"
+              />
+              <Navbar />
+              <InstallPWAPrompt />
+              {children}
+              <ChatWidget />
+              <ServiceWorkerRegister />
+            </ActiveSectionProvider>
           </ThemeProvider>
         </div>
       </body>

@@ -7,13 +7,26 @@ const isClient = typeof window !== "undefined";
 const baseEnglishResources = {
   name: "Imdadul Haque",
   hireMe: "Hire Me",
+  heroGreeting: "Hi, I'm",
+  heroRole: "Mobile Application Developer",
+  installPromptTitle: "Take This Portfolio With You",
+  installPromptDesc:
+    "Install for instant access, offline browsing, and a clean app-like experience — right from your home screen.",
+  installPromptInstall: "Install",
+  installPromptDismiss: "Not now",
   about: "About",
   contactMe: "Contact Me",
   experience: "Experience",
   publication: "Publication",
   projects: "Projects",
-  hireMeDesc: "I am a passionate developer ready to bring your ideas to life.",
-  AboutsDesc:
+  hireMeDescPrefix:
+    "Software Engineer bridging JavaScript and native Android. ",
+  hireMeDescHighlight: "5+",
+  hireMeDescSuffix:
+    " years shipping React Native apps, custom TurboModules and real-time features like WebRTC calling and live chat.",
+  availabilityBadge: "Available for Hybrid & Onsite Roles",
+  scrollDown: "Scroll",
+  aboutDesc:
     "Learn more about my background, skills, and what drives me as a developer.",
   contactMeDesc: "Get in touch with me for collaborations or opportunities.",
   experienceDesc:
@@ -89,6 +102,7 @@ const baseEnglishResources = {
   cmsDesc: "Content management system with modern UI and API.",
   notFound: "Page Not Found",
   notFoundDesc: "The page you are looking for does not exist.",
+  goHome: "Back to Home",
   toggleTheme: "Toggle Theme",
   lightMode: "Light Mode",
   darkMode: "Dark Mode",
@@ -106,13 +120,25 @@ const baseEnglishResources = {
 const banglaTranslations = {
   name: "ইমদাদুল হক",
   hireMe: "আমাকে নিয়োগ করুন",
+  heroGreeting: "হ্যালো, আমি",
+  heroRole: "মোবাইল অ্যাপ্লিকেশন ডেভেলপার",
+  installPromptTitle: "এই পোর্টফোলিওটি সাথে রাখুন",
+  installPromptDesc:
+    "দ্রুত অ্যাক্সেস, অফলাইন ব্রাউজিং এবং অ্যাপের মতো স্বচ্ছন্দ অভিজ্ঞতার জন্য হোম স্ক্রিনে ইনস্টল করুন।",
+  installPromptInstall: "ইনস্টল করুন",
+  installPromptDismiss: "এখন নয়",
   about: "আমার সম্পর্কে",
   contactMe: "যোগাযোগ করুন",
   experience: "অভিজ্ঞতা",
   publication: "প্রকাশনা",
   projects: "প্রকল্প",
-  hireMeDesc:
-    "আমি একজন আবেগপ্রবণ ডেভেলপার যিনি আপনার ধারণাকে বাস্তবে রূপান্তরিত করতে প্রস্তুত।",
+  hireMeDescPrefix:
+    "একজন সফটওয়্যার ইঞ্জিনিয়ার যিনি JavaScript ও নেটিভ Android-এর মধ্যে সেতুবন্ধন করেন। ",
+  hireMeDescHighlight: "৫+",
+  hireMeDescSuffix:
+    " বছর ধরে React Native অ্যাপ, কাস্টম TurboModules এবং WebRTC কলিং ও লাইভ চ্যাটের মতো রিয়েল-টাইম ফিচার তৈরি করছি।",
+  availabilityBadge: "হাইব্রিড ও অনসাইট কাজের জন্য উপলব্ধ",
+  scrollDown: "স্ক্রল করুন",
   aboutDesc:
     "আমার পটভূমি, দক্ষতা এবং আমি একজন ডেভেলপার হিসাবে কী করি তা সম্পর্কে আরও জানুন।",
   contactMeDesc: "সহযোগিতা বা সুযোগের জন্য আমার সাথে যোগাযোগ করুন।",
@@ -186,6 +212,7 @@ const banglaTranslations = {
   cmsDesc: "আধুনিক UI এবং API সহ কনটেন্ট ম্যানেজমেন্ট সিস্টেম।",
   notFound: "পৃষ্ঠা খুঁজে পাওয়া যায়নি",
   notFoundDesc: "আপনি যে পৃষ্ঠা খুঁজছেন তা বিদ্যমান নেই।",
+  goHome: "হোমে ফিরে যান",
   toggleTheme: "থিম টগল করুন",
   lightMode: "লাইট মোড",
   darkMode: "ডার্ক মোড",

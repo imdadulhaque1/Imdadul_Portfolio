@@ -2,12 +2,21 @@
 
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
 
 const Experience = () => {
   const { theme } = useTheme();
   const { t } = useTranslation("common");
-  const txtColor = theme === "dark" ? "dark-text" : "light-text";
-  const bgColor = theme === "dark" ? "dark-bg" : "light-bg";
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && theme === "dark";
+  const txtColor = isDark ? "dark-text" : "light-text";
+  const bgColor = isDark ? "dark-bg" : "light-bg";
+  const cardBg = isDark ? "dark-bg-transparent" : "light-bg-transparent";
 
   const experiences = [
     {
@@ -51,48 +60,54 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className={`min-h-screen flex items-center justify-center px-4 ${bgColor} animate-fade-in-up py-20`}
+      className={`min-h-screen scroll-mt-20 flex items-center justify-center px-4 ${bgColor} animate-fade-in-up py-12 sm:py-16 md:py-20`}
     >
-      <div className="max-w-4xl mx-auto w-full">
+      <div className="relative z-10 max-w-5xl mx-auto w-full">
         <h2
-          className={`text-3xl md:text-5xl font-bold ${txtColor} mb-8 text-center`}
+          className={`text-3xl md:text-5xl font-bold ${txtColor} mb-4 sm:mb-6 md:mb-8 text-center`}
         >
           {t("experience")}
         </h2>
         <p
-          className={`text-lg md:text-xl ${txtColor} mb-12 text-center leading-relaxed`}
+          className={`text-body md:text-body-lg ${txtColor} mb-8 sm:mb-12 text-center leading-relaxed`}
         >
           {t("experienceDesc")}
         </p>
-        <div className="space-y-8 relative">
+        <div className="space-y-6 sm:space-y-8 relative">
           {experiences.map((exp, idx) => (
-            <div key={idx} className="flex gap-6">
+            <div key={idx} className="flex gap-3 sm:gap-6">
               <div className="flex flex-col items-center">
                 <div className="w-4 h-4 bg-blue-500 rounded-full border-4 border-gray-300 dark:border-gray-800"></div>
                 {idx !== experiences.length - 1 && (
                   <div
-                    className={`w-1 h-24 ${theme === "dark" ? "bg-gray-700" : "bg-gray-300"}`}
+                    className={`w-1 h-16 sm:h-20 md:h-24 ${isDark ? "bg-gray-700" : "bg-gray-300"}`}
                   ></div>
                 )}
               </div>
               <div
-                className={`p-6 rounded-lg flex-1 ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}
+                className={`p-4 sm:p-6 rounded-lg flex-1 ${cardBg} backdrop-blur-sm`}
               >
-                <h3 className={`text-xl font-semibold ${txtColor} mb-1`}>
+                <h3
+                  className={`text-heading-sm sm:text-heading md:text-heading-lg font-semibold ${txtColor} mb-1`}
+                >
                   {exp.role}
                 </h3>
-                <p className={`text-blue-500 font-semibold mb-1`}>
+                <p className="text-body md:text-body-lg text-blue-500 font-semibold mb-1">
                   {exp.company}
                 </p>
-                <p className={`${txtColor} opacity-75 mb-4`}>{exp.period}</p>
-                <p className={`${txtColor} mb-4 leading-relaxed`}>
+                <p className={`text-body md:text-body-lg ${txtColor} opacity-75 mb-4`}>
+                  {exp.period}
+                </p>
+                <p
+                  className={`text-body md:text-body-lg ${txtColor} mb-4 leading-relaxed`}
+                >
                   {exp.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   {exp.achievements.map((achievement, i) => (
                     <span
                       key={i}
-                      className="px-3 py-1 bg-blue-500 text-white text-xs rounded-full"
+                      className="px-4 py-1.5 bg-blue-500 text-white text-body md:text-body-lg rounded-full"
                     >
                       {achievement}
                     </span>
