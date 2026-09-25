@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useRef } from "react";
+import { resumePublications } from "@/lib/resume-data";
 
 // Skill names like "WebRTC / Socket.io" or "Microsoft Azure" can outgrow
 // their column once the skills list splits into two (see the grid below),
@@ -163,9 +164,10 @@ const About = () => {
             <p
               className={`text-sm sm:text-sm sm:text-body md:text-body-lg ${txtColor} leading-relaxed mb-6`}
             >
-              5+ years of experience in full-stack development with modern
-              technologies. Specialized in building scalable, performant
-              applications.
+              5+ years bridging JavaScript and native Android — building
+              production React Native apps, custom TurboModules, and
+              real-time features like WebRTC calling, backed by full-stack
+              experience across Node.js, NestJS and modern web technologies.
             </p>
             <div className={`p-4 sm:p-6 rounded-lg ${cardBg} backdrop-blur-sm`}>
               <p
@@ -176,10 +178,10 @@ const About = () => {
               <ul
                 className={`text-sm sm:text-body md:text-body-lg ${txtColor} space-y-2`}
               >
-                <li>✓ Built 15+ production applications</li>
-                <li>✓ Led development teams</li>
-                <li>✓ Open source contributor</li>
-                <li>✓ Technical writer</li>
+                <li>✓ Delivered 4 production systems at Snowtex Group (ERP, FPC, HRMS, Dormitory Management)</li>
+                <li>✓ Built react-native-kernel, an open-source npm TurboModule library</li>
+                <li>✓ Solo-built ConvoX, a social app published on Google Play</li>
+                <li>✓ {resumePublications.length} peer-reviewed publications in IEEE &amp; Springer</li>
               </ul>
             </div>
           </div>

@@ -78,11 +78,11 @@ export default function RootLayout({
                   ended and the next's began. Fixed position means it never
                   interacts with section boundaries at all. */}
               <div
-                className="hero-orb w-72 h-72 sm:w-96 sm:h-96 bg-accent -top-24 -left-24"
+                className="hero-orb w-72 h-72 sm:w-96 sm:h-96 bg-accent -top-24 -left-24 print:hidden"
                 aria-hidden="true"
               />
               <div
-                className="hero-orb w-72 h-72 sm:w-96 sm:h-96 bg-accent-secondary -bottom-24 -right-24"
+                className="hero-orb w-72 h-72 sm:w-96 sm:h-96 bg-accent-secondary -bottom-24 -right-24 print:hidden"
                 aria-hidden="true"
               />
               <Navbar />

@@ -10,9 +10,11 @@ import {
   Eye,
   X,
   Share2,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { publications } from "@/lib/publication-data";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Publication = () => {
   const { theme } = useTheme();
@@ -31,6 +33,40 @@ const Publication = () => {
   const [selectedPublication, setSelectedPublication] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [shareMessage, setShareMessage] = useState("");
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const swipeStartX = useRef<number | null>(null);
+
+  const goTo = (index: number) => {
+    const total = publications.length;
+    setActiveIndex(((index % total) + total) % total);
+  };
+  const goPrev = () => goTo(activeIndex - 1);
+  const goNext = () => goTo(activeIndex + 1);
+
+  // Autoplay pauses on hover/touch (isPaused) rather than just clearing once -
+  // otherwise a visitor who hovers to read a slide would come back to it
+  // having auto-advanced without them noticing.
+  useEffect(() => {
+    if (isPaused || publications.length <= 1) return;
+    const id = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % publications.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, [isPaused]);
+
+  const handleSwipeStart = (e: React.PointerEvent) => {
+    swipeStartX.current = e.clientX;
+  };
+  const handleSwipeEnd = (e: React.PointerEvent) => {
+    if (swipeStartX.current === null) return;
+    const delta = e.clientX - swipeStartX.current;
+    swipeStartX.current = null;
+    if (Math.abs(delta) < 40) return;
+    if (delta < 0) goNext();
+    else goPrev();
+  };
 
   const openModal = (pub: any) => {
     setSelectedPublication(pub);
@@ -89,81 +125,137 @@ const Publication = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-          {publications.map((pub) => (
+        {/* No max-w here (previously max-w-2xl) - the outer section wrapper
+            already matches Projects' own max-w-7xl container, so leaving
+            this unconstrained is what makes the two sections line up at the
+            same width instead of Publication reading narrower. */}
+        <div
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* px reserves room for the arrow buttons below - without it,
+              on mobile (where they sit at left-1/right-1, inside the card's
+              own edge) they overlap the badge row instead of framing the
+              card. */}
+          <div
+            className="overflow-hidden rounded-2xl px-9 sm:px-0"
+            onPointerDown={handleSwipeStart}
+            onPointerUp={handleSwipeEnd}
+          >
+            {/* transform-driven slide, not scroll-snap - a single
+                CSS transition gives one guaranteed-smooth easing curve for
+                every trigger (autoplay, arrows, dots, swipe) instead of
+                relying on native scroll physics, which vary by browser and
+                input device and can feel abrupt on a wheel/trackpad flick. */}
             <div
-              key={pub.id}
-              className={`flex flex-col p-5 sm:p-6 rounded-2xl ${cardBg} backdrop-blur-sm hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl hover:border-accent/50 transition-all duration-300`}
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-accent to-accent-secondary shadow-lg shadow-accent/30 shrink-0">
-                  <BookOpen size={20} className="text-white" />
+              {publications.map((pub) => (
+                <div key={pub.id} className="w-full shrink-0 px-1">
+                  <div
+                    className={`flex flex-col p-5 sm:p-6 rounded-2xl ${cardBg} backdrop-blur-sm transition-all duration-300`}
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-accent to-accent-secondary shadow-lg shadow-accent/30 shrink-0">
+                        <BookOpen size={20} className="text-white" />
+                      </div>
+                      <a
+                        href={pub.publicationURL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Open publication"
+                        className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-accent transition-colors ${
+                          isDark ? "bg-white/5 hover:bg-white/10" : "bg-black/5 hover:bg-black/10"
+                        }`}
+                      >
+                        <ExternalLink size={16} />
+                      </a>
+                    </div>
+
+                    <h3
+                      className={`text-lg sm:text-heading-sm md:text-heading font-bold ${txtColor} leading-snug mb-3 line-clamp-3`}
+                    >
+                      {t(pub.titleKey)}
+                    </h3>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-accent/10 text-accent border border-accent/30">
+                        <BookOpen size={12} />
+                        {t(pub.publisherKey)}
+                      </span>
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm ${txtColor} opacity-75 ${
+                          isDark ? "bg-white/5" : "bg-black/5"
+                        }`}
+                      >
+                        <Calendar size={12} />
+                        {new Date(pub.publicationDate).toLocaleDateString()}
+                      </span>
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm ${txtColor} opacity-75 ${
+                          isDark ? "bg-white/5" : "bg-black/5"
+                        }`}
+                      >
+                        <User size={12} />
+                        {t(pub.authorKey)}
+                      </span>
+                    </div>
+
+                    <p
+                      className={`text-sm sm:text-body ${txtColor} opacity-90 leading-relaxed mb-4 line-clamp-3`}
+                    >
+                      {t(pub.descriptionKey)}
+                    </p>
+
+                    <button
+                      onClick={() => openModal(pub)}
+                      className="self-start text-accent hover:text-accent-secondary transition-colors font-medium text-sm sm:text-body flex items-center gap-1 cursor-pointer"
+                    >
+                      <Eye size={14} />
+                      {t("seeMore") || "See More"}
+                    </button>
+                  </div>
                 </div>
-                <a
-                  href={pub.publicationURL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Open publication"
-                  className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-accent transition-colors ${
-                    isDark ? "bg-white/5 hover:bg-white/10" : "bg-black/5 hover:bg-black/10"
-                  }`}
-                >
-                  <ExternalLink size={16} />
-                </a>
-              </div>
-
-              {/* Clamped to 3 lines - full academic titles run long enough
-                  that leaving them unclamped made cards balloon to wildly
-                  different heights across the row (some 2 lines, some 6).
-                  No min-height here: pairing one with line-clamp triggers a
-                  Chromium rendering bug where a sliver of the clipped line's
-                  glyphs bleeds through below the ellipsis. The "See More"
-                  button below is pinned to the bottom via mt-auto instead,
-                  so cards still end evenly regardless of title length. */}
-              <h3
-                className={`text-lg sm:text-heading-sm md:text-heading font-bold ${txtColor} leading-snug mb-3 line-clamp-3`}
-              >
-                {t(pub.titleKey)}
-              </h3>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-accent/10 text-accent border border-accent/30">
-                  <BookOpen size={12} />
-                  {t(pub.publisherKey)}
-                </span>
-                <span
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm ${txtColor} opacity-75 ${
-                    isDark ? "bg-white/5" : "bg-black/5"
-                  }`}
-                >
-                  <Calendar size={12} />
-                  {new Date(pub.publicationDate).toLocaleDateString()}
-                </span>
-                <span
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm ${txtColor} opacity-75 ${
-                    isDark ? "bg-white/5" : "bg-black/5"
-                  }`}
-                >
-                  <User size={12} />
-                  {t(pub.authorKey)}
-                </span>
-              </div>
-
-              <p
-                className={`text-sm sm:text-body ${txtColor} opacity-90 leading-relaxed mb-4 flex-1 line-clamp-3`}
-              >
-                {t(pub.descriptionKey)}
-              </p>
-
-              <button
-                onClick={() => openModal(pub)}
-                className="mt-auto self-start text-accent hover:text-accent-secondary transition-colors font-medium text-sm sm:text-body flex items-center gap-1 cursor-pointer"
-              >
-                <Eye size={14} />
-                {t("seeMore") || "See More"}
-              </button>
+              ))}
             </div>
-          ))}
+          </div>
+
+          {publications.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label="Previous publication"
+                className={`absolute left-1 sm:-left-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:-translate-x-0.5 cursor-pointer ${cardBg} ${txtColor} backdrop-blur-sm`}
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label="Next publication"
+                className={`absolute right-1 sm:-right-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:translate-x-0.5 cursor-pointer ${cardBg} ${txtColor} backdrop-blur-sm`}
+              >
+                <ChevronRight size={20} />
+              </button>
+
+              <div className="flex items-center justify-center gap-2 mt-6">
+                {publications.map((pub, i) => (
+                  <button
+                    key={pub.id}
+                    type="button"
+                    onClick={() => goTo(i)}
+                    aria-label={`Go to publication ${i + 1}`}
+                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                      i === activeIndex ? "w-6 bg-accent" : "w-2 bg-accent/30 hover:bg-accent/50"
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         {/* Modal */}

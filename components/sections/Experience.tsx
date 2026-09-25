@@ -3,6 +3,26 @@
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
+import { resumeExperience } from "@/lib/resume-data";
+
+// Short pill-style highlights for these cards - resumeExperience's own
+// bullets are full sentences meant for the dense resume layout, not a
+// badge. Role/company/dates/description still come from that shared data
+// so the two stay in sync; only this presentation-specific summary lives
+// here, indexed to match resumeExperience's order.
+const experienceHighlights: string[][] = [
+  ["Recently promoted"],
+  ["4 production systems", "Native Android modules", "REST API integration"],
+  ["Hello Super Stars app", "VideoSDK integration", "Multiple RN apps"],
+];
+
+const experiences = resumeExperience.map((entry, idx) => ({
+  role: entry.title,
+  company: entry.company ?? "",
+  period: entry.dateRange ?? "",
+  description: entry.description ?? "",
+  achievements: experienceHighlights[idx] ?? [],
+}));
 
 const Experience = () => {
   const { theme } = useTheme();
@@ -18,51 +38,12 @@ const Experience = () => {
   const bgColor = isDark ? "dark-bg" : "light-bg";
   const cardBg = isDark ? "dark-bg-transparent" : "light-bg-transparent";
 
-  const experiences = [
-    {
-      role: "Senior Developer",
-      company: "Tech Company",
-      period: "2022 - Present",
-      description:
-        "Led development of scalable web applications using React and Node.js. Managed a team of 3 developers and improved application performance by 40%.",
-      achievements: [
-        "Led team projects",
-        "Improved performance",
-        "Code reviews",
-      ],
-    },
-    {
-      role: "Software Engineer",
-      company: "Startup Inc",
-      period: "2020 - 2022",
-      description:
-        "Built and maintained multiple client projects with modern web technologies. Implemented new features and fixed critical bugs.",
-      achievements: [
-        "Built 5+ projects",
-        "Reduced bugs",
-        "Client satisfaction",
-      ],
-    },
-    {
-      role: "Junior Developer",
-      company: "Innovation Labs",
-      period: "2019 - 2020",
-      description:
-        "Started with fundamentals of web development. Learned best practices and contributed to various projects.",
-      achievements: [
-        "Learned fundamentals",
-        "Contributed code",
-        "Team collaboration",
-      ],
-    },
-  ];
-
   return (
     <section
       id="experience"
       className={`min-h-screen scroll-mt-20 flex items-center justify-center px-4 ${bgColor} animate-fade-in-up py-12 sm:py-16 md:py-20`}
     >
-      <div className="relative z-10 max-w-5xl mx-auto w-full">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         <h2
           className={`text-3xl md:text-5xl font-bold ${txtColor} mb-4 sm:mb-6 md:mb-8 text-center`}
         >

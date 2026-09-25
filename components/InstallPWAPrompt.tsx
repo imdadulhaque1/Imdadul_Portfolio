@@ -26,7 +26,7 @@ const InstallPWAPrompt = () => {
     // A small corner toast (not a full-width banner) sits in space the
     // centered Hero content never reaches, so fixed positioning is safe
     // here without pushing page content down.
-    <div className="fixed top-20 right-3 sm:right-6 z-40 max-w-[88vw] sm:max-w-sm animate-fade-in-up">
+    <div className="fixed top-20 right-3 sm:right-6 z-40 max-w-[88vw] sm:max-w-sm animate-install-prompt print:hidden">
       <div
         className={`flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl ${cardBg} backdrop-blur-sm shadow-2xl`}
       >

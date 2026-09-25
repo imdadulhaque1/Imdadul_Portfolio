@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
-import { Mail, ChevronDown } from "lucide-react";
+import { Mail, ChevronDown, FileText } from "lucide-react";
 import { useActiveSection } from "@/components/ActiveSectionContext";
 
 // lucide-react dropped brand/logo icons, so GitHub and LinkedIn are drawn
@@ -67,6 +67,42 @@ const HireMe = () => {
     setActiveSection(id);
   };
 
+  // Printing straight from a hidden iframe - rather than navigating to
+  // /resume and calling window.print() there - keeps the visitor on the
+  // hero section the whole time. The resume route/page itself is still
+  // needed (this loads it), it's just never the page the visitor sees.
+  const handlePrintResume = () => {
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "fixed";
+    iframe.style.top = "-10000px";
+    iframe.style.left = "-10000px";
+    iframe.style.width = "0";
+    iframe.style.height = "0";
+    iframe.style.border = "0";
+    iframe.setAttribute("aria-hidden", "true");
+    iframe.tabIndex = -1;
+    iframe.src = "/resume";
+
+    const cleanup = () => {
+      iframe.parentNode?.removeChild(iframe);
+    };
+
+    iframe.onload = () => {
+      const win = iframe.contentWindow;
+      if (!win) {
+        cleanup();
+        return;
+      }
+      win.addEventListener("afterprint", cleanup);
+      win.focus();
+      win.print();
+      // Safety net in case a browser never fires afterprint on the child window.
+      setTimeout(cleanup, 30000);
+    };
+
+    document.body.appendChild(iframe);
+  };
+
   return (
     <section
       id="hireMe"
@@ -123,6 +159,20 @@ const HireMe = () => {
             className="px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg text-sm sm:text-sm sm:text-body md:text-body-lg font-semibold transition-all duration-300 border-2 cursor-pointer border-accent text-accent hover:bg-accent hover:text-white"
           >
             {t("projects")}
+          </button>
+          <button
+            type="button"
+            onClick={handlePrintResume}
+            className="animate-resume-cta inline-flex items-center justify-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-sm sm:text-body md:text-body-lg font-semibold text-accent cursor-pointer transition-all duration-300 hover:text-white hover:-translate-y-0.5"
+          >
+            <span className="resume-edge resume-edge-top" aria-hidden="true" />
+            <span className="resume-edge resume-edge-bottom" aria-hidden="true" />
+            <span className="resume-edge resume-edge-left" aria-hidden="true" />
+            <span className="resume-edge resume-edge-right" aria-hidden="true" />
+            <span className="relative z-10 inline-flex items-center gap-2">
+              <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
+              {t("resume")}
+            </span>
           </button>
         </div>
 

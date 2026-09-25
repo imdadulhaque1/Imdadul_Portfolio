@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
-import { Mail, Phone, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, ArrowUpRight, Send, MessageCircle } from "lucide-react";
 
 // lucide-react dropped brand/logo icons, so GitHub and LinkedIn are drawn
 // inline instead of pulling in a separate icon-pack dependency for two glyphs.
@@ -72,67 +72,134 @@ const Contact = () => {
       id="contactMe"
       className={`min-h-screen scroll-mt-20 flex items-center justify-center px-4 ${bgColor} animate-fade-in-up py-12 sm:py-16 md:py-20`}
     >
-      <div className="relative z-10 max-w-3xl mx-auto w-full">
-        <h2
-          className={`text-3xl md:text-5xl font-bold ${txtColor} mb-4 sm:mb-6 text-center`}
-        >
-          {t("contactMe")}
-        </h2>
-        <p
-          className={`text-sm sm:text-body md:text-body-lg ${txtColor} mb-8 sm:mb-12 text-center leading-relaxed`}
-        >
-          {t("contactMeDesc")}
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {contacts.map(({ icon: Icon, label, value, link, external }, idx) => (
-            <a
-              key={idx}
-              href={link}
-              {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className={`group relative flex items-start gap-4 p-4 sm:p-6 rounded-xl ${cardBg} backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-accent/50`}
-            >
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-accent to-accent-secondary shadow-lg shadow-accent/30 shrink-0">
-                <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </div>
-              <div className="min-w-0 pr-4">
-                <h3
-                  className={`text-sm sm:text-body ${txtColor} opacity-70 mb-1`}
-                >
-                  {label}
-                </h3>
-                <p
-                  className={`text-sm sm:text-body md:text-body-lg font-semibold break-words ${txtColor} group-hover:text-accent transition-colors`}
-                >
-                  {value}
-                </p>
-              </div>
-              <ArrowUpRight
-                size={16}
-                className={`absolute top-4 right-4 sm:top-5 sm:right-5 opacity-30 group-hover:opacity-100 group-hover:text-accent transition-all ${txtColor}`}
-              />
-            </a>
-          ))}
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
+        <div className="text-center mb-10 sm:mb-14">
+          <h2
+            className={`text-3xl md:text-5xl font-bold ${txtColor} mb-4 sm:mb-6`}
+          >
+            {t("contactMe")}
+          </h2>
+          <p
+            className={`text-sm sm:text-body md:text-body-lg ${txtColor} max-w-2xl mx-auto leading-relaxed opacity-90`}
+          >
+            {t("contactMeDesc")}
+          </p>
         </div>
-        <form className={`mt-8 sm:mt-12 p-4 sm:p-6 rounded-xl ${cardBg} backdrop-blur-sm space-y-4`}>
-          <input
-            type="text"
-            placeholder="Your Name"
-            className={`w-full px-4 py-3 rounded-lg border text-sm sm:text-body md:text-body-lg ${inputBg} focus:outline-none focus:ring-2 focus:ring-accent`}
-          />
-          <input
-            type="email"
-            placeholder="Your Email"
-            className={`w-full px-4 py-3 rounded-lg border text-sm sm:text-body md:text-body-lg ${inputBg} focus:outline-none focus:ring-2 focus:ring-accent`}
-          />
-          <textarea
-            placeholder="Your Message"
-            rows={5}
-            className={`w-full px-4 py-3 rounded-lg border text-sm sm:text-body md:text-body-lg ${inputBg} focus:outline-none focus:ring-2 focus:ring-accent`}
-          />
-          <button className="w-full px-6 py-3 rounded-lg btn-primary text-sm sm:text-body md:text-body-lg font-semibold cursor-pointer">
-            Send Message
-          </button>
-        </form>
+
+        {/* Info + form side by side at the same width as About/Projects -
+            a single narrow column widened to that same 7xl would either
+            leave the cards stranded in empty space or stretch the form's
+            inputs into awkwardly long single-line fields. Splitting the
+            width between the two instead gives each a size that actually
+            suits its content. */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 items-start">
+          <div className="lg:col-span-2 flex flex-col gap-6">
+            <div
+              className={`p-5 sm:p-6 rounded-2xl ${cardBg} backdrop-blur-sm`}
+            >
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-accent to-accent-secondary shadow-lg shadow-accent/30 mb-4">
+                <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              </div>
+              <h3
+                className={`text-heading-sm sm:text-heading font-semibold ${txtColor} mb-2`}
+              >
+                Let&apos;s Connect
+              </h3>
+              <p className={`text-sm sm:text-body ${txtColor} opacity-75 leading-relaxed`}>
+                Open to full-time roles, freelance work and collaborations.
+                Reach out through whichever channel is easiest for you.
+              </p>
+            </div>
+
+            {/* 2-up only below lg - once the page itself splits into two
+                columns there (see the parent grid), this panel is capped at
+                ~40% of a max-w-7xl container even at very wide viewports,
+                which was too narrow for a full email address on one line
+                inside a second-level 2-column split. Single column past
+                that point avoids the mid-word wrap instead of chasing it
+                with more breakpoints. */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+              {contacts.map(({ icon: Icon, label, value, link, external }, idx) => (
+                <a
+                  key={idx}
+                  href={link}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className={`group relative flex items-start gap-4 p-4 sm:p-5 rounded-xl ${cardBg} backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-accent/50`}
+                >
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center bg-gradient-to-br from-accent to-accent-secondary shadow-lg shadow-accent/30 shrink-0">
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  </div>
+                  <div className="min-w-0 pr-4">
+                    <h3
+                      className={`text-sm sm:text-body ${txtColor} opacity-70 mb-1`}
+                    >
+                      {label}
+                    </h3>
+                    <p
+                      className={`text-sm sm:text-body font-semibold break-words ${txtColor} group-hover:text-accent transition-colors`}
+                    >
+                      {value}
+                    </p>
+                  </div>
+                  <ArrowUpRight
+                    size={16}
+                    className={`absolute top-4 right-4 opacity-30 group-hover:opacity-100 group-hover:text-accent transition-all ${txtColor}`}
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <form
+            className={`lg:col-span-3 p-5 sm:p-8 rounded-2xl ${cardBg} backdrop-blur-sm space-y-5`}
+          >
+            <h3
+              className={`text-heading-sm sm:text-heading font-semibold ${txtColor} mb-1`}
+            >
+              Send a Message
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+              <div>
+                <label
+                  className={`block text-sm ${txtColor} opacity-70 mb-1.5`}
+                >
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Jane Doe"
+                  className={`w-full px-4 py-3 rounded-lg border text-sm sm:text-body ${inputBg} focus:outline-none focus:ring-2 focus:ring-accent`}
+                />
+              </div>
+              <div>
+                <label
+                  className={`block text-sm ${txtColor} opacity-70 mb-1.5`}
+                >
+                  Your Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="jane@example.com"
+                  className={`w-full px-4 py-3 rounded-lg border text-sm sm:text-body ${inputBg} focus:outline-none focus:ring-2 focus:ring-accent`}
+                />
+              </div>
+            </div>
+            <div>
+              <label className={`block text-sm ${txtColor} opacity-70 mb-1.5`}>
+                Your Message
+              </label>
+              <textarea
+                placeholder="Tell me a bit about what you have in mind..."
+                rows={6}
+                className={`w-full px-4 py-3 rounded-lg border text-sm sm:text-body ${inputBg} focus:outline-none focus:ring-2 focus:ring-accent resize-none`}
+              />
+            </div>
+            <button className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg btn-primary text-sm sm:text-body md:text-body-lg font-semibold cursor-pointer">
+              Send Message
+              <Send size={18} />
+            </button>
+          </form>
+        </div>
       </div>
     </section>
   );

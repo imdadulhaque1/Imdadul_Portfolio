@@ -162,6 +162,45 @@
   animation: textShake 2.6s ease-in-out infinite;
 }
 
+/* Same "brief burst, long hold" shape as .animate-shake above, just a
+   slower cycle and smaller displacement - this is a whole fixed-position
+   card, not inline text, so a wiggle every ~2.6s would read as constant
+   jitter instead of an occasional nudge. Bundled into one animation
+   shorthand with the entrance fadeInUp (rather than keeping .animate-fade-
+   in-up as a separate class alongside this one) because a second class
+   setting its own `animation` property would replace this one outright
+   instead of layering with it - the shorthand can't be split across two
+   class rules and still have both take effect. */
+@keyframes installPromptShake {
+  0%,
+  85%,
+  100% {
+    transform: translateX(0);
+  }
+  87% {
+    transform: translateX(-4px);
+  }
+  90% {
+    transform: translateX(4px);
+  }
+  93% {
+    transform: translateX(-3px);
+  }
+  96% {
+    transform: translateX(3px);
+  }
+}
+
+.animate-install-prompt {
+  animation:
+    fadeInUp 0.6s ease-out,
+    installPromptShake 6s ease-in-out 1.2s infinite;
+}
+
+.animate-install-prompt:hover {
+  animation-play-state: running, paused;
+}
+
 /* The fill's own width transition (triggered from 0 -> target% in the
    component once mounted) reads as a one-time load-in. This shimmer sweep
    keeps the bar feeling alive afterwards without re-triggering that width
@@ -213,6 +252,113 @@
   display: inline-flex;
   width: max-content;
   animation: skillTicker 6s linear infinite;
+}
+
+/* Draws the eye to the Resume CTA without a hover trigger - it's the one
+   action a recruiter skimming the hero shouldn't miss. The idle state is
+   the tinted-outline look with a smoothly blinking gradient border (a slow
+   fade between dim and bright, not a hard on/off flash) - a breathing ring
+   reads as clearly distinct motion next to the site's other animations
+   (expanding pulse ring, linear shimmer sweep, ticker scroll) without
+   filling the whole button, so it stays visually lighter than Contact Me
+   at rest.
+
+   The border ring is its own pseudo-element (padding + mask-composite:
+   exclude carves out just the ring from a full-box gradient) rather than
+   the earlier background-clip: padding-box/border-box split - that
+   approach tied the ring's color into the *same* background-image as the
+   tinted interior, so animating just the ring's opacity for a blink wasn't
+   possible without also fading the interior. A dedicated pseudo keeps the
+   interior tint and the ring on fully independent layers. */
+.animate-resume-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--accent) 12%, var(--background));
+}
+
+.animate-resume-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: resumeBorderBlink 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes resumeBorderBlink {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Hover: four bars, one per edge, each anchored to its own side and
+   growing only along the axis toward the center (top/bottom animate
+   height, left/right animate width). Growing them all at once reads as
+   the active color closing in "from all four sides" until they meet in
+   the middle. Reversing that same transition on hover-out necessarily
+   opens the gap at the center first (the moving edge nearest the middle
+   retreats back toward its own side), which is exactly the "drains out
+   from the middle" motion asked for - one mechanism gives both directions
+   instead of needing separate in/out animations. */
+.animate-resume-cta .resume-edge {
+  position: absolute;
+  z-index: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1), height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.animate-resume-cta .resume-edge-top,
+.animate-resume-cta .resume-edge-bottom {
+  left: 0;
+  right: 0;
+  height: 0;
+}
+
+.animate-resume-cta .resume-edge-top {
+  top: 0;
+}
+
+.animate-resume-cta .resume-edge-bottom {
+  bottom: 0;
+}
+
+.animate-resume-cta .resume-edge-left,
+.animate-resume-cta .resume-edge-right {
+  top: 0;
+  bottom: 0;
+  width: 0;
+}
+
+.animate-resume-cta .resume-edge-left {
+  left: 0;
+}
+
+.animate-resume-cta .resume-edge-right {
+  right: 0;
+}
+
+.animate-resume-cta:hover .resume-edge-top,
+.animate-resume-cta:hover .resume-edge-bottom {
+  height: 51%;
+}
+
+.animate-resume-cta:hover .resume-edge-left,
+.animate-resume-cta:hover .resume-edge-right {
+  width: 51%;
 }
 
 body {

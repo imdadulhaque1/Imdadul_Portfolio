@@ -19,6 +19,7 @@ const baseEnglishResources = {
   experience: "Experience",
   publication: "Publication",
   projects: "Projects",
+  resume: "Resume",
   hireMeDescPrefix:
     "Software Engineer bridging JavaScript and native Android. ",
   hireMeDescHighlight: "5+",
@@ -27,14 +28,14 @@ const baseEnglishResources = {
   availabilityBadge: "Available for Hybrid & Onsite Roles",
   scrollDown: "Scroll",
   aboutDesc:
-    "Learn more about my background, skills, and what drives me as a developer.",
+    "The stack I build with day to day, and the journey from web development into React Native and native Android engineering.",
   contactMeDesc: "Get in touch with me for collaborations or opportunities.",
   experienceDesc:
-    "Explore my professional journey and the experiences that shaped my career.",
+    "From Assistant Engineer to Software Engineer at Snowtex Group, and the roles along the way that built my React Native and native Android expertise.",
   publicationDesc:
-    "Check out my published works and contributions to the field.",
+    "Peer-reviewed research in machine learning and deep learning, published in IEEE and Springer venues.",
   projectsDesc:
-    "Discover the projects I've worked on and the technologies I've used.",
+    "Enterprise mobile systems built at Snowtex Group, an open-source npm package, and a solo-built social app.",
   language: "Language",
   // About Section
   skills: "Skills",
@@ -77,6 +78,16 @@ const baseEnglishResources = {
   pub3Author: "Imdadul Haque",
   pub3Description:
     "Pepper is cultivated all over the world and many farmers' subsistence depends on these crops. But unfortunately, farmers who are involved in the cultivation of pepper, have to fall on a huge loss because of the low production of pepper caused by several diseases of pepper. If the diseases can be detected accurately and in a short time, then the losses can be prevented. The incorrect identification and time needed process can't release from the diseases and also can't help reduce the losses. For acquiring great accuracy within a short time to recognize the pepper diseases, multirecognition methods can give promising results to the users. In this study, several pre-trained deep learning models such as VGG-19, Xception, NasNet Mobile, MobileNet-V2, ResNet-152-V2, and Inception-ResNet-V2 have been used to extract the deep characteristic from the images and these models provide great accuracy. Most of the diseases of pepper are caused by a fungal and bacterial attack. In this study, 386 images are used for training, 63 images are used for validation and 107 images are used for testing 4 classes of pepper diseases and one healthy image of pepper for identifying the diseases types of pepper. The customized CNN models have achieved the highest accuracy and fulfilled the target of this study. The picking accuracy has been achieved from the VGG-19 and ResNet-152-V2 is 96.26%. Also, Xception has provided better accuracy than Inception-ResNet-V2, MobileNet-V2, and NasNet-Mobile and that is 93.46%.",
+  pub4Title: "Malabar Nightshade Disease Detection Using Deep Learning Technique",
+  pub4Publisher: "Springer, Singapore",
+  pub4Author: "Imdadul Haque",
+  pub4Description:
+    "One of the most common vegetables as Malabar cultivates is increasing day by day, and the farmers are suffering from the Malabar disease known as scab disease on Malabar leaves. So that there are many papers already published and some of them also able to achieve a pretty accuracy, and it is sometime up to 85%. But, this is not the perfect solution for the suffering farmers who are also facing the loss of cultivation. We are trying to solve the issues, and we also research on Malabar with 96.77% accuracy which is height accuracy. This approaches are implementing and design the model to detect and recognize Malabar disease and made this project with convolutional neural network (CNN) with respect to keras API and OpenCV, and this is a classification model of Malabar disease recognition system. We took the input as Malabar leaves with the fixed input size is 200 × 200 which defines the RGB Malabar leaves image.",
+  pub5Title: "Deep Learning based Classification of Papaya Disease Recognition",
+  pub5Publisher: "IEEE",
+  pub5Author: "Imdadul Haque",
+  pub5Description:
+    "Every year many of farmers had to face a huge amount of loss due to the papaya disease. From the last several years, thousands of researchers pay attention to the papaya disease recognition system to reduce the losses of farmers. Farmers have no prior knowledge about the detection technique to mitigate the disease. They found the diseases when the papaya already affected and wasted. Due to the loss of cultivation, many of them are now frightening to take steps about planting papaya. On this matter, a research has been performed with the advancement of deep learning technology to detect and classify the papaya disease. CNN model is used according to Keras API. This model becomes reliable with fully connected, where classification is completed and all the process is a deep learning based. It took the fixed size of image 200x200 RGB image as input.",
   // Common UI
   seeMore: "See More",
   share: "Share",
@@ -132,6 +143,7 @@ const banglaTranslations = {
   experience: "অভিজ্ঞতা",
   publication: "প্রকাশনা",
   projects: "প্রকল্প",
+  resume: "জীবনবৃত্তান্ত",
   hireMeDescPrefix:
     "একজন সফটওয়্যার ইঞ্জিনিয়ার যিনি JavaScript ও নেটিভ Android-এর মধ্যে সেতুবন্ধন করেন। ",
   hireMeDescHighlight: "৫+",
@@ -140,17 +152,18 @@ const banglaTranslations = {
   availabilityBadge: "হাইব্রিড ও অনসাইট কাজের জন্য উপলব্ধ",
   scrollDown: "স্ক্রল করুন",
   aboutDesc:
-    "আমার পটভূমি, দক্ষতা এবং আমি একজন ডেভেলপার হিসাবে কী করি তা সম্পর্কে আরও জানুন।",
+    "আমি প্রতিদিন যে প্রযুক্তি নিয়ে কাজ করি, এবং ওয়েব ডেভেলপমেন্ট থেকে React Native ও নেটিভ অ্যান্ড্রয়েড ইঞ্জিনিয়ারিংয়ে আসার যাত্রা।",
   contactMeDesc: "সহযোগিতা বা সুযোগের জন্য আমার সাথে যোগাযোগ করুন।",
   experienceDesc:
-    "আমার পেশাদার যাত্রা এবং আমার ক্যারিয়ারকে গঠন করেছে এমন অভিজ্ঞতাগুলি অন্বেষণ করুন।",
-  publicationDesc: "আমার প্রকাশিত কাজ এবং এই ক্ষেত্রে অবদান দেখুন।",
+    "Snowtex Group-এ Assistant Engineer থেকে Software Engineer পর্যন্ত, এবং যে ভূমিকাগুলো আমার React Native ও নেটিভ অ্যান্ড্রয়েড দক্ষতা গড়ে তুলেছে।",
+  publicationDesc:
+    "মেশিন লার্নিং ও ডিপ লার্নিং বিষয়ে পিয়ার-রিভিউড গবেষণা, IEEE ও Springer ভেন্যুতে প্রকাশিত।",
   projectsDesc:
-    "আমি যে প্রকল্পগুলিতে কাজ করেছি এবং আমি যে প্রযুক্তিগুলি ব্যবহার করেছি তা আবিষ্কার করুন।",
+    "Snowtex Group-এ তৈরি এন্টারপ্রাইজ মোবাইল সিস্টেম, একটি ওপেন-সোর্স npm প্যাকেজ এবং একক হাতে তৈরি একটি সোশ্যাল অ্যাপ।",
   language: "ভাষা",
   // About Section
   skills: "দক্ষতা",
-  fullStackDeveloper: "ফুল স্ট্যাক ডেভেলপার",
+  fullStackDeveloper: "সফটওয়্যার ইঞ্জিনিয়ার",
   expertiseIn: "দক্ষতা",
   // Contact Section
   getInTouch: "যোগাযোগ করুন",
@@ -188,6 +201,16 @@ const banglaTranslations = {
   pub3Author: "ইমদাদুল হক",
   pub3Description:
     "মরিচের বিভিন্ন রোগ নির্ণয়ে দ্রুত ও সঠিক সনাক্তকরণ গুরুত্বপূর্ণ। এই গবেষণায় প্রি-ট্রেইনড ডিপ লার্নিং মডেল ব্যবহার করে মরিচ রোগ শনাক্ত করার চেষ্টা করা হয়েছে। প্রস্তাবিত পদ্ধতিতে VGG-19, Xception, NasNet Mobile, MobileNet-V2, ResNet-152-V2 ও Inception-ResNet-V2 সহ বিভিন্ন মডেলের কার্যকারিতা পরীক্ষা করা হয়েছে এবং সঠিকতা উন্নত করা হয়েছে।",
+  pub4Title: "ডিপ লার্নিং কৌশল ব্যবহার করে মালাবার শাকের রোগ সনাক্তকরণ",
+  pub4Publisher: "Springer, Singapore",
+  pub4Author: "ইমদাদুল হক",
+  pub4Description:
+    "মালাবার শাক চাষ দিন দিন বাড়ছে, কিন্তু কৃষকরা এর স্ক্যাব রোগে ভুগছেন। বিদ্যমান গবেষণাগুলো সর্বোচ্চ প্রায় ৮৫% নির্ভুলতা অর্জন করতে পেরেছে, যা যথেষ্ট নয়। এই গবেষণায় Keras API ও OpenCV সহযোগে একটি কনভোলিউশনাল নিউরাল নেটওয়ার্ক (CNN) মডেল তৈরি করে মালাবার রোগ শনাক্তকরণে ৯৬.৭৭% নির্ভুলতা অর্জন করা হয়েছে। ইনপুট হিসেবে ২০০ × ২০০ পিক্সেলের RGB মালাবার পাতার ছবি ব্যবহার করা হয়েছে।",
+  pub5Title: "ডিপ লার্নিং ব্যবহার করে পেঁপে রোগ শ্রেণীবিন্যাস",
+  pub5Publisher: "IEEE",
+  pub5Author: "ইমদাদুল হক",
+  pub5Description:
+    "প্রতি বছর পেঁপে রোগের কারণে কৃষকদের বিপুল ক্ষতির সম্মুখীন হতে হয়, কারণ রোগ শনাক্ত করার আগে থেকেই তাদের কোনো ধারণা থাকে না এবং রোগ ধরা পড়ে ততক্ষণে ফসল নষ্ট হয়ে যায়। এই গবেষণায় Keras API ব্যবহার করে একটি CNN মডেলের মাধ্যমে পেঁপে রোগ শনাক্ত ও শ্রেণীবিন্যাস করা হয়েছে। ইনপুট হিসেবে ২০০×২০০ পিক্সেলের RGB ছবি ব্যবহার করা হয়েছে।",
   // Common UI
   seeMore: "আরও দেখুন",
   share: "শেয়ার",

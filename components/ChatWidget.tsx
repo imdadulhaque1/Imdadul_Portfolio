@@ -57,7 +57,7 @@ const ChatWidget = () => {
   return (
     <>
       {/* Floating Button */}
-      <div className="fixed bottom-4 right-4 z-50">
+      <div className="fixed bottom-4 right-4 z-50 print:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-3 shadow-lg transition-colors"
@@ -69,7 +69,7 @@ const ChatWidget = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-16 right-4 w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-800 rounded-lg shadow-xl border z-50">
+        <div className="fixed bottom-16 right-4 w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-800 rounded-lg shadow-xl border z-50 print:hidden">
           <div className="flex items-center justify-between p-4 border-b">
             <h3 className="font-semibold text-gray-900 dark:text-white">
               {t("chatTitle")}

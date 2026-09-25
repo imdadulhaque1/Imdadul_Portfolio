@@ -36,4 +36,23 @@ export const publications: PublicationItem[] = [
     publicationURL: "https://ieeexplore.ieee.org/abstract/document/9793178",
     descriptionKey: "pub3Description",
   },
+  {
+    id: 4,
+    titleKey: "pub4Title",
+    publisherKey: "pub4Publisher",
+    publicationDate: "2022-03-31",
+    authorKey: "pub4Author",
+    publicationURL:
+      "https://link.springer.com/chapter/10.1007/978-981-16-9012-9_15",
+    descriptionKey: "pub4Description",
+  },
+  {
+    id: 5,
+    titleKey: "pub5Title",
+    publisherKey: "pub5Publisher",
+    publicationDate: "2021-01-18",
+    authorKey: "pub5Author",
+    publicationURL: "https://ieeexplore.ieee.org/abstract/document/9316106",
+    descriptionKey: "pub5Description",
+  },
 ];

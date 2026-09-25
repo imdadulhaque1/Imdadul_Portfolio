@@ -60,27 +60,35 @@ const Navbar = () => {
     }
   };
 
-  const linkBaseClass = `px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 cursor-pointer ${
+  const linkBaseClass = `px-3 py-2 rounded-md text-base font-medium transition-all duration-300 cursor-pointer ${
     mounted && theme === "dark" ? "dark-text" : "light-text"
   } hover:text-accent hover:bg-gray-100 dark:hover:bg-gray-800`;
 
   const linkActiveClass =
-    "px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 cursor-pointer bg-accent text-white shadow-lg shadow-indigo-500/30";
+    "px-3 py-2 rounded-md text-base font-medium transition-all duration-300 cursor-pointer bg-accent text-white shadow-lg shadow-indigo-500/30";
 
   return (
     <nav
-      className={`fixed top-0 w-full ${mounted && theme === "dark" ? "dark-bg-transparent" : "light-bg-transparent"} shadow-md z-50 transition-colors duration-300 backdrop-blur-sm`}
+      className={`fixed top-0 w-full ${mounted && theme === "dark" ? "dark-bg-transparent" : "light-bg-transparent"} shadow-md z-50 transition-colors duration-300 backdrop-blur-sm print:hidden`}
       suppressHydrationWarning
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="shrink-0">
+            {/* "Hire Me" has no entry in navLinks (the logo already scrolls
+                there), which used to leave the whole nav bar with nothing
+                marked active while scrolled to the hero - every other
+                section shows a solid highlighted pill, so that gap read as
+                the active indicator being wrong/missing rather than as
+                "you're at the top". Giving the logo the same pill treatment
+                here (not just a text-color change) means some part of the
+                nav always accurately reflects the current section. */}
             <button
               type="button"
               onClick={() => handleNavigation("hireMe")}
-              className={`text-xl font-bold transition-all duration-300 cursor-pointer ${
+              className={`text-lg sm:text-xl font-bold rounded-md transition-all duration-300 cursor-pointer ${
                 activeSection === "hireMe"
-                  ? "text-accent-secondary"
+                  ? "px-3 py-1.5 -mx-3 bg-accent text-white shadow-lg shadow-indigo-500/30"
                   : `${mounted && theme === "dark" ? "dark-text" : "light-text"} hover:text-accent-secondary`
               }`}
               suppressHydrationWarning
