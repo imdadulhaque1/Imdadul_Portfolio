@@ -39,7 +39,7 @@ const About = () => {
           {t("about")}
         </h2>
         <p
-          className={`text-body md:text-body-lg ${txtColor} mb-8 sm:mb-12 text-center leading-relaxed`}
+          className={`text-sm sm:text-sm sm:text-body md:text-body-lg ${txtColor} mb-8 sm:mb-12 text-center leading-relaxed`}
         >
           {t("aboutDesc")}
         </p>
@@ -55,11 +55,11 @@ const About = () => {
                 <div key={idx}>
                   <div className="flex justify-between mb-2">
                     <span
-                      className={`text-body md:text-body-lg font-medium ${txtColor}`}
+                      className={`text-sm sm:text-sm sm:text-body md:text-body-lg font-medium ${txtColor}`}
                     >
                       {skill.name}
                     </span>
-                    <span className="text-body md:text-body-lg text-blue-500 font-semibold">
+                    <span className="text-sm sm:text-sm sm:text-body md:text-body-lg text-blue-500 font-semibold">
                       {skill.level}
                     </span>
                   </div>
@@ -82,20 +82,20 @@ const About = () => {
               {t("fullStackDeveloper")}
             </h3>
             <p
-              className={`text-body md:text-body-lg ${txtColor} leading-relaxed mb-6`}
+              className={`text-sm sm:text-sm sm:text-body md:text-body-lg ${txtColor} leading-relaxed mb-6`}
             >
-              3+ years of experience in full-stack development with modern
+              5+ years of experience in full-stack development with modern
               technologies. Specialized in building scalable, performant
               applications.
             </p>
             <div className={`p-4 sm:p-6 rounded-lg ${cardBg} backdrop-blur-sm`}>
               <p
-                className={`text-body md:text-body-lg ${txtColor} font-semibold mb-2`}
+                className={`text-sm sm:text-body md:text-body-lg ${txtColor} font-semibold mb-2`}
               >
                 Key Achievements:
               </p>
               <ul
-                className={`text-body md:text-body-lg ${txtColor} space-y-2`}
+                className={`text-sm sm:text-body md:text-body-lg ${txtColor} space-y-2`}
               >
                 <li>✓ Built 15+ production applications</li>
                 <li>✓ Led development teams</li>

@@ -83,7 +83,7 @@ const Publication = () => {
             {t("publication")}
           </h2>
           <p
-            className={`text-body md:text-body-lg ${txtColor} opacity-80 max-w-2xl mx-auto`}
+            className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-80 max-w-2xl mx-auto`}
           >
             {t("publicationDesc")}
           </p>
@@ -114,27 +114,27 @@ const Publication = () => {
                 <div className="flex items-center gap-2">
                   <BookOpen size={16} className="text-blue-500" />
                   <span
-                    className={`text-body md:text-body-lg ${txtColor} font-medium`}
+                    className={`text-sm sm:text-body md:text-body-lg ${txtColor} font-medium`}
                   >
                     {t(pub.publisherKey)}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar size={16} className="text-blue-500" />
-                  <span className={`text-body md:text-body-lg ${txtColor} opacity-75`}>
+                  <span className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-75`}>
                     {new Date(pub.publicationDate).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <User size={16} className="text-blue-500" />
-                  <span className={`text-body md:text-body-lg ${txtColor} opacity-75`}>
+                  <span className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-75`}>
                     {t(pub.authorKey)}
                   </span>
                 </div>
               </div>
               <div className="mb-4">
                 <p
-                  className={`text-body md:text-body-lg ${txtColor} leading-relaxed overflow-hidden`}
+                  className={`text-sm sm:text-body md:text-body-lg ${txtColor} leading-relaxed overflow-hidden`}
                   style={{
                     display: "-webkit-box",
                     WebkitLineClamp: 3,
@@ -145,7 +145,7 @@ const Publication = () => {
                 </p>
                 <button
                   onClick={() => openModal(pub)}
-                  className="mt-2 text-blue-500 hover:text-blue-600 transition-colors font-medium text-body md:text-body-lg flex items-center gap-1 cursor-pointer"
+                  className="mt-2 text-blue-500 hover:text-blue-600 transition-colors font-medium text-sm sm:text-body md:text-body-lg flex items-center gap-1 cursor-pointer"
                 >
                   <Eye size={14} />
                   {t("seeMore") || "See More"}

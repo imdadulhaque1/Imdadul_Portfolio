@@ -69,7 +69,7 @@ const Experience = () => {
           {t("experience")}
         </h2>
         <p
-          className={`text-body md:text-body-lg ${txtColor} mb-8 sm:mb-12 text-center leading-relaxed`}
+          className={`text-sm sm:text-body md:text-body-lg ${txtColor} mb-8 sm:mb-12 text-center leading-relaxed`}
         >
           {t("experienceDesc")}
         </p>
@@ -92,14 +92,14 @@ const Experience = () => {
                 >
                   {exp.role}
                 </h3>
-                <p className="text-body md:text-body-lg text-blue-500 font-semibold mb-1">
+                <p className="text-sm sm:text-body md:text-body-lg text-blue-500 font-semibold mb-1">
                   {exp.company}
                 </p>
-                <p className={`text-body md:text-body-lg ${txtColor} opacity-75 mb-4`}>
+                <p className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-75 mb-4`}>
                   {exp.period}
                 </p>
                 <p
-                  className={`text-body md:text-body-lg ${txtColor} mb-4 leading-relaxed`}
+                  className={`text-sm sm:text-body md:text-body-lg ${txtColor} mb-4 leading-relaxed`}
                 >
                   {exp.description}
                 </p>
@@ -107,7 +107,7 @@ const Experience = () => {
                   {exp.achievements.map((achievement, i) => (
                     <span
                       key={i}
-                      className="px-4 py-1.5 bg-blue-500 text-white text-body md:text-body-lg rounded-full"
+                      className="px-4 py-1.5 bg-blue-500 text-white text-sm sm:text-body md:text-body-lg rounded-full"
                     >
                       {achievement}
                     </span>

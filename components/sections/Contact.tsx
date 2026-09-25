@@ -57,7 +57,7 @@ const Contact = () => {
           {t("contactMe")}
         </h2>
         <p
-          className={`text-body md:text-body-lg ${txtColor} mb-8 sm:mb-12 text-center leading-relaxed`}
+          className={`text-sm sm:text-body md:text-body-lg ${txtColor} mb-8 sm:mb-12 text-center leading-relaxed`}
         >
           {t("contactMeDesc")}
         </p>
@@ -72,7 +72,7 @@ const Contact = () => {
             >
               <div className="text-3xl mb-3">{contact.icon}</div>
               <h3
-                className={`text-body md:text-body-lg font-semibold ${txtColor} opacity-75 mb-2`}
+                className={`text-sm sm:text-body md:text-body-lg font-semibold ${txtColor} opacity-75 mb-2`}
               >
                 {contact.label}
               </h3>
@@ -88,19 +88,19 @@ const Contact = () => {
           <input
             type="text"
             placeholder="Your Name"
-            className={`w-full px-4 py-3 rounded-lg text-body md:text-body-lg ${isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            className={`w-full px-4 py-3 rounded-lg text-sm sm:text-body md:text-body-lg ${isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
           <input
             type="email"
             placeholder="Your Email"
-            className={`w-full px-4 py-3 rounded-lg text-body md:text-body-lg ${isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            className={`w-full px-4 py-3 rounded-lg text-sm sm:text-body md:text-body-lg ${isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
           <textarea
             placeholder="Your Message"
             rows={5}
-            className={`w-full px-4 py-3 rounded-lg text-body md:text-body-lg ${isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            className={`w-full px-4 py-3 rounded-lg text-sm sm:text-body md:text-body-lg ${isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-black"} focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
-          <button className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 text-body md:text-body-lg font-semibold cursor-pointer">
+          <button className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 text-sm sm:text-body md:text-body-lg font-semibold cursor-pointer">
             Send Message
           </button>
         </form>

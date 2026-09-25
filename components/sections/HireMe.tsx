@@ -70,7 +70,7 @@ const HireMe = () => {
             <span className="relative inline-flex h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 rounded-full bg-emerald-500" />
           </span>
           <span
-            className={`text-sm sm:text-body md:text-body-lg font-semibold ${txtColor}`}
+            className={`text-sm sm:text-sm sm:text-body md:text-body-lg font-semibold ${txtColor}`}
           >
             {t("availabilityBadge")}
           </span>
@@ -90,7 +90,7 @@ const HireMe = () => {
           {t("heroRole")}
         </p>
         <p
-          className={`text-sm sm:text-body md:text-body-lg ${txtColor} max-w-6xl mx-auto mb-4 sm:mb-6 md:mb-8 leading-relaxed opacity-90`}
+          className={`text-sm sm:text-sm sm:text-body md:text-body-lg ${txtColor} max-w-6xl mx-auto mb-4 sm:mb-6 md:mb-8 leading-relaxed opacity-90`}
         >
           {t("hireMeDescPrefix")}
           <span className="text-lg sm:text-heading md:text-heading-lg font-bold text-accent animate-shake">
@@ -102,14 +102,14 @@ const HireMe = () => {
           <button
             type="button"
             onClick={() => scrollTo("contactMe")}
-            className="btn-primary px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg text-sm sm:text-body md:text-body-lg font-semibold cursor-pointer"
+            className="btn-primary px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg text-sm sm:text-sm sm:text-body md:text-body-lg font-semibold cursor-pointer"
           >
             {t("contactMe")}
           </button>
           <button
             type="button"
             onClick={() => scrollTo("projects")}
-            className="px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg text-sm sm:text-body md:text-body-lg font-semibold transition-all duration-300 border-2 cursor-pointer border-accent text-accent hover:bg-accent hover:text-white"
+            className="px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg text-sm sm:text-sm sm:text-body md:text-body-lg font-semibold transition-all duration-300 border-2 cursor-pointer border-accent text-accent hover:bg-accent hover:text-white"
           >
             {t("projects")}
           </button>
@@ -140,7 +140,7 @@ const HireMe = () => {
             aria-label={t("scrollDown")}
             className={`flex flex-col items-center gap-1 cursor-pointer group ${txtColor} opacity-60 hover:opacity-100 transition-opacity duration-300`}
           >
-            <span className="text-xs sm:text-body md:text-body-lg font-medium tracking-widest uppercase">
+            <span className="text-xs sm:text-sm sm:text-body md:text-body-lg font-medium tracking-widest uppercase">
               {t("scrollDown")}
             </span>
             <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 animate-bounce" />

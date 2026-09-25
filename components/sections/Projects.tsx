@@ -32,7 +32,7 @@ const Projects = () => {
             {t("projects")}
           </h2>
           <p
-            className={`text-body md:text-body-lg ${txtColor} opacity-80 max-w-2xl mx-auto`}
+            className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-80 max-w-2xl mx-auto`}
           >
             {t("projectsDesc")}
           </p>
@@ -68,7 +68,7 @@ const Projects = () => {
                   {t(project.titleKey)}
                 </h3>
                 <p
-                  className={`text-body md:text-body-lg ${txtColor} opacity-80 mb-4 leading-relaxed`}
+                  className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-80 mb-4 leading-relaxed`}
                 >
                   {t(project.descriptionKey)}
                 </p>
@@ -76,7 +76,7 @@ const Projects = () => {
                   {project.technologies.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className={`px-3 py-1 text-body md:text-body-lg rounded-full ${isDark ? "bg-gray-800 text-gray-300" : "bg-gray-100 text-gray-700"}`}
+                      className={`px-3 py-1 text-sm sm:text-body md:text-body-lg rounded-full ${isDark ? "bg-gray-800 text-gray-300" : "bg-gray-100 text-gray-700"}`}
                     >
                       {tech}
                     </span>
@@ -85,13 +85,13 @@ const Projects = () => {
                 <div className="flex gap-3">
                   <a
                     href={project.github}
-                    className="flex-1 text-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 text-body md:text-body-lg font-medium"
+                    className="flex-1 text-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 text-sm sm:text-body md:text-body-lg font-medium"
                   >
                     GitHub
                   </a>
                   <a
                     href={project.demo}
-                    className="flex-1 text-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 text-body md:text-body-lg font-medium"
+                    className="flex-1 text-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 text-sm sm:text-body md:text-body-lg font-medium"
                   >
                     Live Demo
                   </a>
