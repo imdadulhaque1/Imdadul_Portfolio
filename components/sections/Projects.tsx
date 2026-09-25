@@ -25,7 +25,13 @@ const Projects = () => {
       id="projects"
       className={`py-12 sm:py-16 md:py-20 scroll-mt-20 ${bgColor}`}
     >
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Flat px-4, not the responsive px-4 sm:px-6 lg:px-8 this used to
+          have - every other section (About/Experience/Contact) uses a flat
+          px-4 on its own wrapper, so the old responsive padding here meant
+          Projects/Publication sat with up to 32px of side margin at the lg
+          breakpoint while the others stayed at 16px, making this section's
+          content measurably narrower instead of matching. */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4">
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h2
             className={`text-3xl md:text-5xl font-bold ${txtColor} mb-3 sm:mb-4`}
@@ -33,7 +39,7 @@ const Projects = () => {
             {t("projects")}
           </h2>
           <p
-            className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-80 max-w-2xl mx-auto`}
+            className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-80`}
           >
             {t("projectsDesc")}
           </p>

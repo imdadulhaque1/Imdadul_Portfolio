@@ -111,7 +111,10 @@ const Publication = () => {
       id="publication"
       className={`py-12 sm:py-16 md:py-20 scroll-mt-20 ${bgColor}`}
     >
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Flat px-4, matching every other section's wrapper - see Projects.tsx
+          for why the previous responsive px-4 sm:px-6 lg:px-8 made this
+          section's content narrower than the rest at the lg breakpoint. */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4">
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h2
             className={`text-3xl md:text-5xl font-bold ${txtColor} mb-3 sm:mb-4`}
@@ -119,7 +122,7 @@ const Publication = () => {
             {t("publication")}
           </h2>
           <p
-            className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-80 max-w-2xl mx-auto`}
+            className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-80`}
           >
             {t("publicationDesc")}
           </p>
