@@ -2,7 +2,55 @@
 
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
+// Skill names like "WebRTC / Socket.io" or "Microsoft Azure" can outgrow
+// their column once the skills list splits into two (see the grid below),
+// especially at the sm/md breakpoints where each column is narrowest.
+// Wrapping would break row alignment with the progress bar underneath it,
+// so text that doesn't fit scrolls as a ticker instead of wrapping or
+// getting truncated; text that already fits stays perfectly still.
+const TickerText = ({
+  text,
+  className = "",
+}: {
+  text: string;
+  className?: string;
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const [overflowing, setOverflowing] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const textEl = textRef.current;
+    if (!container || !textEl) return;
+
+    const checkOverflow = () => {
+      setOverflowing(textEl.scrollWidth > container.clientWidth);
+    };
+
+    checkOverflow();
+    const observer = new ResizeObserver(checkOverflow);
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [text]);
+
+  return (
+    <div ref={containerRef} className={`overflow-hidden whitespace-nowrap ${className}`}>
+      <span className={overflowing ? "skill-ticker-track" : "inline-block"}>
+        <span ref={textRef} className="inline-block">
+          {text}
+        </span>
+        {overflowing && (
+          <span className="inline-block pl-10" aria-hidden="true">
+            {text}
+          </span>
+        )}
+      </span>
+    </div>
+  );
+};
 
 const About = () => {
   const { theme } = useTheme();
@@ -18,13 +66,42 @@ const About = () => {
   const bgColor = isDark ? "dark-bg" : "light-bg";
   const cardBg = isDark ? "dark-bg-transparent" : "light-bg-transparent";
 
+  // Bars start at 0% and only pick up their real width once `mounted` flips
+  // (see the effect above) so the fill transition in globals.css actually
+  // has a "from" state to animate from, instead of snapping straight to
+  // full width on first paint.
+  const levelPercent: Record<string, number> = {
+    Expert: 95,
+    Advanced: 82,
+    Intermediate: 62,
+    Basic: 38,
+  };
+
+  // Ordered by category priority (mobile -> realtime -> web -> backend ->
+  // db -> server), not alphabetically or by level, so the list leads with
+  // what this portfolio should be found for first.
   const skills = [
-    { name: "React/Next.js", level: "Expert" },
-    { name: "TypeScript", level: "Expert" },
-    { name: "Node.js", level: "Advanced" },
-    { name: "Python", level: "Advanced" },
-    { name: "MongoDB", level: "Advanced" },
-    { name: "Tailwind CSS", level: "Expert" },
+    // Mobile
+    { name: "React Native", level: "Expert" },
+    { name: "Kotlin", level: "Intermediate" },
+    { name: "Swift", level: "Basic" },
+    { name: "TypeScript", level: "Advanced" },
+    // Realtime
+    { name: "WebRTC / Socket.io", level: "Intermediate" },
+    // Web
+    { name: "ReactJS / Next.js", level: "Intermediate" },
+    { name: "Tailwind CSS", level: "Advanced" },
+    // Backend
+    { name: "NestJS", level: "Advanced" },
+    { name: ".NET", level: "Basic" },
+    // Database
+    { name: "MSSQL", level: "Intermediate" },
+    { name: "PostgreSQL", level: "Basic" },
+    { name: "MongoDB", level: "Basic" },
+    // Server / DevOps
+    { name: "Microsoft Azure", level: "Basic" },
+    { name: "Redis", level: "Basic" },
+    { name: "GitHub", level: "Advanced" },
   ];
 
   return (
@@ -50,25 +127,27 @@ const About = () => {
             >
               {t("skills")}
             </h3>
-            <div className="space-y-4">
+            <div className="columns-1 sm:columns-2 gap-x-8">
               {skills.map((skill, idx) => (
-                <div key={idx}>
-                  <div className="flex justify-between mb-2">
-                    <span
-                      className={`text-sm sm:text-sm sm:text-body md:text-body-lg font-medium ${txtColor}`}
-                    >
-                      {skill.name}
-                    </span>
-                    <span className="text-sm sm:text-sm sm:text-body md:text-body-lg text-blue-500 font-semibold">
+                <div key={idx} className="break-inside-avoid mb-5">
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <TickerText
+                      text={skill.name}
+                      className={`flex-1 min-w-0 text-sm sm:text-sm sm:text-body md:text-body-lg font-medium ${txtColor}`}
+                    />
+                    <span className="shrink-0 text-sm sm:text-sm sm:text-body md:text-body-lg text-accent font-semibold">
                       {skill.level}
                     </span>
                   </div>
                   <div
-                    className={`h-2 rounded-full ${isDark ? "bg-gray-700" : "bg-gray-300"}`}
+                    className={`h-2 sm:h-2.5 rounded-full ${isDark ? "bg-gray-700" : "bg-gray-300"}`}
                   >
                     <div
-                      className="h-2 bg-blue-500 rounded-full"
-                      style={{ width: "90%" }}
+                      className="skill-bar-fill h-2 sm:h-2.5 rounded-full"
+                      style={{
+                        width: mounted ? `${levelPercent[skill.level]}%` : "0%",
+                        transitionDelay: `${idx * 80}ms`,
+                      }}
                     ></div>
                   </div>
                 </div>

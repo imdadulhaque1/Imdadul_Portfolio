@@ -38,7 +38,7 @@ const baseEnglishResources = {
   language: "Language",
   // About Section
   skills: "Skills",
-  fullStackDeveloper: "Full Stack Developer",
+  fullStackDeveloper: "Software Engineer",
   expertiseIn: "Expertise in",
   // Contact Section
   getInTouch: "Get In Touch",

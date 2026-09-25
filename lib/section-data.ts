@@ -7,6 +7,9 @@ export type SectionRoute = {
   descKey: string;
 };
 
+// Order matches the single-page top-to-bottom section order in app/page.tsx
+// (SECTION_IDS), so the navbar links line up with what the visitor actually
+// scrolls through.
 export const sectionRoutes: SectionRoute[] = [
   {
     route: "hireMe",
@@ -25,20 +28,20 @@ export const sectionRoutes: SectionRoute[] = [
     descKey: "aboutDesc",
   },
   {
-    route: "contact",
-    sectionId: "contactMe",
-    title: "Imdadul Haque | Contact Me",
-    description: "Contact Imdadul Haque",
-    titleKey: "contactMe",
-    descKey: "contactMeDesc",
-  },
-  {
     route: "experience",
     sectionId: "experience",
     title: "Imdadul Haque | Experience",
     description: "Experience of Imdadul Haque",
     titleKey: "experience",
     descKey: "experienceDesc",
+  },
+  {
+    route: "projects",
+    sectionId: "projects",
+    title: "Imdadul Haque | Projects",
+    description: "Projects of Imdadul Haque",
+    titleKey: "projects",
+    descKey: "projectsDesc",
   },
   {
     route: "publication",
@@ -49,12 +52,12 @@ export const sectionRoutes: SectionRoute[] = [
     descKey: "publicationDesc",
   },
   {
-    route: "projects",
-    sectionId: "projects",
-    title: "Imdadul Haque | Projects",
-    description: "Projects of Imdadul Haque",
-    titleKey: "projects",
-    descKey: "projectsDesc",
+    route: "contact",
+    sectionId: "contactMe",
+    title: "Imdadul Haque | Contact Me",
+    description: "Contact Imdadul Haque",
+    titleKey: "contactMe",
+    descKey: "contactMeDesc",
   },
 ];
 
@@ -76,9 +79,13 @@ export const sectionIdLookup: Record<string, SectionRoute> =
     {} as Record<string, SectionRoute>,
   );
 
-export const navLinks = sectionRoutes.map((route) => ({
-  route: route.route,
-  labelKey: route.titleKey,
-  path: route.route === "hireMe" ? "/" : `/${route.route}`,
-  targetId: route.sectionId,
-}));
+// "Hire Me" is left out here - the navbar's own logo/name button already
+// scrolls there, and Contact Me is the actual call-to-action for hiring.
+export const navLinks = sectionRoutes
+  .filter((route) => route.route !== "hireMe")
+  .map((route) => ({
+    route: route.route,
+    labelKey: route.titleKey,
+    path: `/${route.route}`,
+    targetId: route.sectionId,
+  }));

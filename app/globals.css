@@ -26,13 +26,6 @@
   --font-sans: var(--font-work-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* Single source of truth for body copy vs. card/item title sizes, used
-     with the sm:/md: prefixes everywhere (e.g. `text-heading-sm sm:text-heading
-     md:text-heading-lg`) so every section's text stays in sync - change the
-     values here instead of hunting down every text-* class across the
-     section components. text-heading-sm exists because card titles (e.g.
-     publication titles) at text-heading's 30px took 5+ lines on a phone
-     screen and dominated the card. */
   --text-body: 1.25rem; /* 20px */
   --text-body-lg: 1.25rem; /* 20px */
   --text-heading-sm: 1.375rem; /* 22px */
@@ -167,6 +160,59 @@
 .animate-shake {
   display: inline-block;
   animation: textShake 2.6s ease-in-out infinite;
+}
+
+/* The fill's own width transition (triggered from 0 -> target% in the
+   component once mounted) reads as a one-time load-in. This shimmer sweep
+   keeps the bar feeling alive afterwards without re-triggering that width
+   animation or fighting its easing. */
+@keyframes skillShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+.skill-bar-fill {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  transition: width 1.1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.skill-bar-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: skillShimmer 2.4s ease-in-out infinite;
+}
+
+/* Only applied (by TickerText, in About.tsx) once a skill name's measured
+   scrollWidth exceeds its column - the track holds two copies of the label
+   back to back so translating it by exactly -50% of the track's width hands
+   off from the first copy to the identical second one with no visible seam,
+   instead of snapping back to the start like a naive 0 -> -100% loop would. */
+@keyframes skillTicker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.skill-ticker-track {
+  display: inline-flex;
+  width: max-content;
+  animation: skillTicker 6s linear infinite;
 }
 
 body {

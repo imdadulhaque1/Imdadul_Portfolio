@@ -42,10 +42,10 @@ const Projects = () => {
           {projects.map((project) => (
             <div
               key={project.id}
-              className={`group rounded-2xl overflow-hidden ${cardBg} backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:transform hover:scale-105 transition-all duration-300`}
+              className={`group flex flex-col rounded-2xl overflow-hidden ${cardBg} backdrop-blur-sm hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl hover:border-accent/50 transition-all duration-300`}
             >
               <div
-                className={`h-36 sm:h-40 md:h-48 ${isDark ? "bg-gray-800" : "bg-gray-100"} flex items-center justify-center`}
+                className={`h-36 sm:h-40 md:h-48 shrink-0 ${isDark ? "bg-gray-800" : "bg-gray-100"} flex items-center justify-center`}
               >
                 <svg
                   className={`w-16 h-16 ${txtColor} opacity-50`}
@@ -61,9 +61,13 @@ const Projects = () => {
                   />
                 </svg>
               </div>
-              <div className="p-4 sm:p-6">
+              {/* flex-1 + mt-auto on the button row (below) - not fixed
+                  spacing - so GitHub/Live Demo always land on the same line
+                  across a row of cards, regardless of how many lines the
+                  title/description/tech tags each card happens to take. */}
+              <div className="flex flex-col flex-1 p-4 sm:p-6">
                 <h3
-                  className={`text-heading-sm sm:text-heading md:text-heading-lg font-semibold ${txtColor} mb-3 group-hover:text-blue-500 transition-colors`}
+                  className={`text-lg sm:text-heading-sm md:text-heading font-semibold ${txtColor} leading-snug mb-3 line-clamp-2 group-hover:text-accent transition-colors`}
                 >
                   {t(project.titleKey)}
                 </h3>
@@ -82,7 +86,7 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 mt-auto">
                   <a
                     href={project.github}
                     className="flex-1 text-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 text-sm sm:text-body md:text-body-lg font-medium"
@@ -91,7 +95,7 @@ const Projects = () => {
                   </a>
                   <a
                     href={project.demo}
-                    className="flex-1 text-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 text-sm sm:text-body md:text-body-lg font-medium"
+                    className="flex-1 text-center px-4 py-2 rounded-lg btn-primary text-sm sm:text-body md:text-body-lg font-medium"
                   >
                     Live Demo
                   </a>

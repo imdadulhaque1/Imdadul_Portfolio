@@ -21,10 +21,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Imdadul Haque",
   description:
-    "Welcome to visit IMDADUL HAQUE's profile! Full Stack Developer specializing in React, Next.js, and modern web technologies.",
+    "Welcome to visit IMDADUL HAQUE's profile! Software Engineer specializing in React, Next.js, and modern web technologies.",
   keywords: [
     "Imdadul Haque",
-    "Full Stack Developer",
+    "Software Engineer",
     "React",
     "Next.js",
     "TypeScript",
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Imdadul Haque" }],
   openGraph: {
-    title: "Imdadul Haque - Full Stack Developer",
+    title: "Imdadul Haque - Software Engineer",
     description:
-      "Portfolio of Imdadul Haque, a passionate full stack developer",
+      "Portfolio of Imdadul Haque, a passionate Software Engineer",
     type: "website",
   },
   appleWebApp: {

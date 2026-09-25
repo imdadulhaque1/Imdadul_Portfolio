@@ -93,64 +93,75 @@ const Publication = () => {
           {publications.map((pub) => (
             <div
               key={pub.id}
-              className={`p-4 sm:p-6 rounded-xl ${cardBg} backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:transform hover:scale-105 transition-all duration-300`}
+              className={`flex flex-col p-5 sm:p-6 rounded-2xl ${cardBg} backdrop-blur-sm hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl hover:border-accent/50 transition-all duration-300`}
             >
               <div className="flex items-start justify-between mb-4">
-                <h3
-                  className={`text-heading-sm sm:text-heading md:text-heading-lg font-bold ${txtColor} flex-1 leading-tight`}
-                >
-                  {t(pub.titleKey)}
-                </h3>
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-accent to-accent-secondary shadow-lg shadow-accent/30 shrink-0">
+                  <BookOpen size={20} className="text-white" />
+                </div>
                 <a
                   href={pub.publicationURL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500 hover:text-blue-600 transition-colors ml-2"
+                  aria-label="Open publication"
+                  className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-accent transition-colors ${
+                    isDark ? "bg-white/5 hover:bg-white/10" : "bg-black/5 hover:bg-black/10"
+                  }`}
                 >
-                  <ExternalLink size={20} />
+                  <ExternalLink size={16} />
                 </a>
               </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2">
-                  <BookOpen size={16} className="text-blue-500" />
-                  <span
-                    className={`text-sm sm:text-body md:text-body-lg ${txtColor} font-medium`}
-                  >
-                    {t(pub.publisherKey)}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Calendar size={16} className="text-blue-500" />
-                  <span className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-75`}>
-                    {new Date(pub.publicationDate).toLocaleDateString()}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <User size={16} className="text-blue-500" />
-                  <span className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-75`}>
-                    {t(pub.authorKey)}
-                  </span>
-                </div>
-              </div>
-              <div className="mb-4">
-                <p
-                  className={`text-sm sm:text-body md:text-body-lg ${txtColor} leading-relaxed overflow-hidden`}
-                  style={{
-                    display: "-webkit-box",
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: "vertical",
-                  }}
+
+              {/* Clamped to 3 lines - full academic titles run long enough
+                  that leaving them unclamped made cards balloon to wildly
+                  different heights across the row (some 2 lines, some 6).
+                  No min-height here: pairing one with line-clamp triggers a
+                  Chromium rendering bug where a sliver of the clipped line's
+                  glyphs bleeds through below the ellipsis. The "See More"
+                  button below is pinned to the bottom via mt-auto instead,
+                  so cards still end evenly regardless of title length. */}
+              <h3
+                className={`text-lg sm:text-heading-sm md:text-heading font-bold ${txtColor} leading-snug mb-3 line-clamp-3`}
+              >
+                {t(pub.titleKey)}
+              </h3>
+
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-accent/10 text-accent border border-accent/30">
+                  <BookOpen size={12} />
+                  {t(pub.publisherKey)}
+                </span>
+                <span
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm ${txtColor} opacity-75 ${
+                    isDark ? "bg-white/5" : "bg-black/5"
+                  }`}
                 >
-                  {t(pub.descriptionKey)}
-                </p>
-                <button
-                  onClick={() => openModal(pub)}
-                  className="mt-2 text-blue-500 hover:text-blue-600 transition-colors font-medium text-sm sm:text-body md:text-body-lg flex items-center gap-1 cursor-pointer"
+                  <Calendar size={12} />
+                  {new Date(pub.publicationDate).toLocaleDateString()}
+                </span>
+                <span
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm ${txtColor} opacity-75 ${
+                    isDark ? "bg-white/5" : "bg-black/5"
+                  }`}
                 >
-                  <Eye size={14} />
-                  {t("seeMore") || "See More"}
-                </button>
+                  <User size={12} />
+                  {t(pub.authorKey)}
+                </span>
               </div>
+
+              <p
+                className={`text-sm sm:text-body ${txtColor} opacity-90 leading-relaxed mb-4 flex-1 line-clamp-3`}
+              >
+                {t(pub.descriptionKey)}
+              </p>
+
+              <button
+                onClick={() => openModal(pub)}
+                className="mt-auto self-start text-accent hover:text-accent-secondary transition-colors font-medium text-sm sm:text-body flex items-center gap-1 cursor-pointer"
+              >
+                <Eye size={14} />
+                {t("seeMore") || "See More"}
+              </button>
             </div>
           ))}
         </div>
@@ -163,17 +174,13 @@ const Publication = () => {
               onClick={closeModal}
             />
             <div
-              className={`relative max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl ${
-                isDark ? "bg-gray-900" : "bg-white"
-              } shadow-2xl`}
+              className={`relative max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl ${bgColor} shadow-2xl`}
             >
               {/* Modal Header */}
               <div
-                className={`sticky top-0 z-10 p-6 border-b ${
-                  isDark
-                    ? "border-gray-700 bg-gray-900/95"
-                    : "border-gray-200 bg-white/95"
-                } backdrop-blur-sm rounded-t-2xl`}
+                className={`sticky top-0 z-10 p-4 sm:p-6 border-b ${
+                  isDark ? "border-gray-700" : "border-gray-200"
+                } bg-[var(--background)]/95 backdrop-blur-sm rounded-t-2xl`}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -184,13 +191,13 @@ const Publication = () => {
                     </h2>
                     <div className="flex flex-wrap items-center gap-4 text-sm">
                       <div className="flex items-center gap-2">
-                        <BookOpen size={16} className="text-blue-500" />
+                        <BookOpen size={16} className="text-accent" />
                         <span className={`${txtColor} font-medium`}>
                           {t(selectedPublication.publisherKey)}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Calendar size={16} className="text-blue-500" />
+                        <Calendar size={16} className="text-accent" />
                         <span className={`${txtColor} opacity-75`}>
                           {new Date(
                             selectedPublication.publicationDate,
@@ -198,7 +205,7 @@ const Publication = () => {
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <User size={16} className="text-blue-500" />
+                        <User size={16} className="text-accent" />
                         <span className={`${txtColor} opacity-75`}>
                           {t(selectedPublication.authorKey)}
                         </span>
@@ -219,14 +226,14 @@ const Publication = () => {
               </div>
 
               {/* Modal Content */}
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 {/* Publication URL */}
                 <div className="mb-6 flex flex-wrap gap-3">
                   <a
                     href={selectedPublication.publicationURL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors font-medium"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg btn-primary font-medium"
                   >
                     <ExternalLink size={16} />
                     View Publication
@@ -271,11 +278,7 @@ const Publication = () => {
                 </div>
 
                 {/* Additional Info */}
-                <div
-                  className={`p-4 rounded-lg ${
-                    isDark ? "bg-gray-800" : "bg-gray-50"
-                  }`}
-                >
+                <div className={`p-4 rounded-lg ${cardBg} backdrop-blur-sm`}>
                   <h4 className={`font-semibold ${txtColor} mb-2`}>
                     Publication Details
                   </h4>

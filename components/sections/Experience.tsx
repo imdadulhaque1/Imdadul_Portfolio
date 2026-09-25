@@ -32,7 +32,7 @@ const Experience = () => {
       ],
     },
     {
-      role: "Full Stack Developer",
+      role: "Software Engineer",
       company: "Startup Inc",
       period: "2020 - 2022",
       description:
@@ -77,22 +77,22 @@ const Experience = () => {
           {experiences.map((exp, idx) => (
             <div key={idx} className="flex gap-3 sm:gap-6">
               <div className="flex flex-col items-center">
-                <div className="w-4 h-4 bg-blue-500 rounded-full border-4 border-gray-300 dark:border-gray-800"></div>
+                <div className="w-4 h-4 bg-accent rounded-full border-4 border-[var(--background)]"></div>
                 {idx !== experiences.length - 1 && (
                   <div
-                    className={`w-1 h-16 sm:h-20 md:h-24 ${isDark ? "bg-gray-700" : "bg-gray-300"}`}
+                    className={`w-1 flex-1 min-h-16 sm:min-h-20 md:min-h-24 ${isDark ? "bg-gray-700" : "bg-gray-300"}`}
                   ></div>
                 )}
               </div>
               <div
-                className={`p-4 sm:p-6 rounded-lg flex-1 ${cardBg} backdrop-blur-sm`}
+                className={`p-4 sm:p-6 rounded-xl flex-1 ${cardBg} backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-accent/50`}
               >
                 <h3
-                  className={`text-heading-sm sm:text-heading md:text-heading-lg font-semibold ${txtColor} mb-1`}
+                  className={`text-lg sm:text-heading-sm md:text-heading font-semibold ${txtColor} leading-snug mb-1`}
                 >
                   {exp.role}
                 </h3>
-                <p className="text-sm sm:text-body md:text-body-lg text-blue-500 font-semibold mb-1">
+                <p className="text-sm sm:text-body md:text-body-lg text-accent font-semibold mb-1">
                   {exp.company}
                 </p>
                 <p className={`text-sm sm:text-body md:text-body-lg ${txtColor} opacity-75 mb-4`}>
@@ -103,11 +103,11 @@ const Experience = () => {
                 >
                   {exp.description}
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   {exp.achievements.map((achievement, i) => (
                     <span
                       key={i}
-                      className="px-4 py-1.5 bg-blue-500 text-white text-sm sm:text-body md:text-body-lg rounded-full"
+                      className="px-3 sm:px-4 py-1.5 bg-accent/10 text-accent border border-accent/30 text-sm sm:text-body md:text-body-lg rounded-full"
                     >
                       {achievement}
                     </span>
